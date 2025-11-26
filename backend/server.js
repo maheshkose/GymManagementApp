@@ -2,8 +2,10 @@ import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import connectDb from './library/connectDb.js';
-import errorMiddleware from './Middleware/errorMiddleware.js';
+import errorMiddleware from './Middlewares/errorMiddleware.js';
 import cloudinaryConnection from './library/cloudinary.js';
+import { sendEmail } from './library/Gmail.js';
+import userRouter from './Routes/userRoutes.js';
 
 dotenv.config();
 
@@ -18,6 +20,12 @@ app.use(cors({
     methods:['GET','POST','PUT','DELETE'],
     credentials:true
 }));
+
+//send mail test route
+app.get('/send-test-email', async (req, res) => {
+  const info = await sendEmail("kosemahesh9@gmail.com","test email","<h1>This is a test email from Gym Management App</h1>");
+  res.send('Test email sent', info);
+});
 //cloudinary connection
 cloudinaryConnection();
 
@@ -26,6 +34,7 @@ app.get('/', (req, res) => {
   res.send('Welcome to the Gym Management App Backend!');
 });
 
+app.use('/api/user',userRouter);
 
 
 //error middleware
