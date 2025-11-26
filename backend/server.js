@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import connectDb from './library/connectDb.js';
 import errorMiddleware from './Middleware/errorMiddleware.js';
+import cloudinaryConnection from './library/cloudinary.js';
 
 dotenv.config();
 
@@ -17,6 +18,8 @@ app.use(cors({
     methods:['GET','POST','PUT','DELETE'],
     credentials:true
 }));
+//cloudinary connection
+cloudinaryConnection();
 
 //routes
 app.get('/', (req, res) => {
