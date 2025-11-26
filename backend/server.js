@@ -2,6 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import connectDb from './library/connectDb.js';
+import errorMiddleware from './Middleware/errorMiddleware.js';
 
 dotenv.config();
 
@@ -23,6 +24,9 @@ app.get('/', (req, res) => {
 });
 
 
+
+//error middleware
+app.use(errorMiddleware);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
