@@ -8,8 +8,14 @@ export const generateCookies = async(user,res) => {
         expires: new Date(
             Date.now() + process.env.COOKIE_EXPIRES_TIME * 24 * 60 * 60 * 1000),
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'Production' ? true : false,
-        sameSite: process.env.NODE_ENV === 'Production' ? 'None' : 'Lax',
+        // secure: process.env.NODE_ENV === 'Production' ? true : false,
+        // sameSite: process.env.NODE_ENV === 'Production' ? 'None' : 'Lax',
+        //localhost
+    secure:false,
+    sameSite:"lax"
+    // production 
+    // secure:true,
+    // sameSite:"none"
     }).status(200).json({
         success: true,
         message: `${user.role} logged in successfully`,
