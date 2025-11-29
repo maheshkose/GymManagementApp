@@ -26,6 +26,11 @@ export const registerAdmin = catchAsyncErrors(async (req, res, next) => {
         role: 'admin',
         
     })
+     res.status(200).json({
+        success:true,
+        message:`${newUser.role} registered succefully`,
+        user:{name:newUser.name,email:newUser.email,role:newUser.role}
+    });
     
 });
 export const registerClient = catchAsyncErrors(async (req, res, next) => {
@@ -132,3 +137,53 @@ export const loginClient = catchAsyncErrors(async (req, res, next) => {
 
     generateCookies(user, res);
 });
+
+export const logoutAdmin = catchAsyncErrors(async (req,res,next) => {
+    const {token} = req.cookies.admin_token;
+
+    if (!token) {
+        return next(new ErrorHandler("Authentication Token not found", 400));
+    }
+
+    res.clearCookie("admin_token",{
+        httpOnly:true,
+        secure:true,
+        sameSite:"none"
+    })
+     res.status(200).json({
+        success:true,
+        message:`logout succefully`
+        
+    });
+}) 
+
+export const logoutClient = catchAsyncErrors(async (req,res,next) => {
+    const {token} = req.cookies.client_token;
+
+    if (!token) {
+        return next(new ErrorHandler("Authentication Token not found", 400));
+    }
+
+    res.clearCookie("client_token",{
+        httpOnly:true,
+        secure:true,
+        sameSite:"none"
+    })
+     res.status(200).json({
+        success:true,
+        message:`logout succefully`
+        
+    });
+}) 
+
+export const getUserDetails = catchAsyncErrors(async (req,res,next) => {
+    const {user} = req.user;
+    if (!user) {
+         return next(new ErrorHandler("User Not found", 400));
+    }
+    res.status(200).json({
+        success:true,
+        message:'User details fetched successfully',
+        user
+    })
+})
