@@ -1,0 +1,41 @@
+.add-plan {
+  width: 80%;
+  margin: 2rem auto;
+  background: #fff;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 0.3rem 1rem rgba(0,0,0,0.1);
+}
+
+.add-plan form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+input, textarea, select {
+  padding: 0.8rem 1rem;
+  border-radius: 0.6rem;
+  border: 0.1rem solid #ccc;
+  font-size: 1rem;
+}
+
+.submit-btn {
+  padding: 1rem;
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 0.6rem;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.submit-btn:hover {
+  opacity: 0.9;
+}
