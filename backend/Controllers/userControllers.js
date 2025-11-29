@@ -139,7 +139,7 @@ export const loginClient = catchAsyncErrors(async (req, res, next) => {
 });
 
 export const logoutAdmin = catchAsyncErrors(async (req,res,next) => {
-    const {token} = req.cookies.admin_token;
+    const token = req.cookies.admin_token;
 
     if (!token) {
         return next(new ErrorHandler("Authentication Token not found", 400));

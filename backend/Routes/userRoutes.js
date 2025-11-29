@@ -13,7 +13,7 @@ userRouter.post("/loginAdmin", loginAdmin);
 userRouter.post("/loginClient", loginClient);
 userRouter.get("/getAdminDetails",isAdminAuthenticated, getUserDetails);
 userRouter.get("/getClientDetails",isClientAuthenticated, getUserDetails);
-userRouter.get("adminLogout",isAdminAuthenticated, logoutAdmin);
+userRouter.get("/adminLogout",isAdminAuthenticated, logoutAdmin);
 userRouter.get("clientLogout",isClientAuthenticated, logoutClient);
 
 
