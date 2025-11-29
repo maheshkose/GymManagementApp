@@ -6,7 +6,7 @@ import errorMiddleware from './Middlewares/errorMiddleware.js';
 import cloudinaryConnection from './library/cloudinary.js';
 import { sendEmail } from './library/Gmail.js';
 import userRouter from './Routes/userRoutes.js';
-import membersRouter from './Routes/membersRoute.js';
+import membersRouter from './Routes/membersRoute.js';import cookieParser from "cookie-parser";
 
 dotenv.config();
 
@@ -19,6 +19,7 @@ import './library/planCheck.js';
 import planRouter from './Routes/planRoutes.js';
 import employeeRouter from './Routes/employeeRoutes.js';
 
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({

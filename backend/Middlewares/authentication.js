@@ -4,6 +4,7 @@ import ErrorHandler from './ErrorHandler.js';
 import User from '../Models/userModels.js';
 
 export const isAdminAuthenticated = catchAsyncErrors(async (req, res, next) => {
+
   const token = req.cookies.admin_token;
 
   if (!token) {
@@ -16,11 +17,13 @@ export const isAdminAuthenticated = catchAsyncErrors(async (req, res, next) => {
   } catch (err) {
     return next(new ErrorHandler("Invalid or expired token", 401));
   }
+ 
+  
 
-  const user = await User.findById(decodedData._id).select("name email role");
+  const user = await User.findById(decodedData.id).select("name email role");
 
   if (!user) {
-    return next(new ErrorHandler("User not found", 404));
+    return next(new ErrorHandler("User not found at", 404));
   }
 
   if (user.role !== "admin") {
