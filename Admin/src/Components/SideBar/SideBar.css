@@ -1,0 +1,95 @@
+/* Sidebar container */
+.sidebar {
+  width: 100%;
+  height: 100vh;
+  background: #43b8e6bb; /* sky blue */
+  /* position: fixed;
+  top: 0;
+  left: 0; */
+  padding: 20px 10px;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease-in-out;
+  box-sizing: border-box;
+  
+}
+
+/* Logo Section */
+.sidebar .logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.sidebar .logo img {
+  width: 50px;
+}
+
+/* Navigation styling */
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* NavLink base styling */
+.sidebar nav a {
+  text-decoration: none;
+  color: #fff;
+  font-size: 16px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  transition: 0.3s ease-in-out;
+}
+
+/* Icon + text container */
+.sidebar nav p {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Hover */
+.sidebar nav a:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* Active NavLink */
+.sidebar nav a.active {
+  background: #ffffff;
+  color: #000;
+  font-weight: 700;
+}
+
+/* Highlight icon when active */
+.sidebar nav a.active p svg {
+  color: #000;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 70px;
+    padding: 20px 5px;
+  }
+
+  .sidebar nav p span {
+    display: none; /* hide text on small screens */
+  }
+
+  .sidebar .logo img {
+    width: 40px;
+  }
+}
+
+/* Mobile menu collapsed more */
+@media (max-width: 480px) {
+  .sidebar {
+    position: fixed;
+    z-index: 999;
+  }
+}

@@ -1,0 +1,144 @@
+/* MAIN LAYOUT */
+.home-page {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  gap: 2rem;
+  padding: 2rem;
+  width: 100%;
+  min-height: 100%;
+  background: #f5f5f5;
+  
+}
+
+.statics {
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  
+  gap: 2rem;
+}
+
+/* NUMBER CARDS */
+.number-static {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: 1.5rem;
+}
+
+.number-static > div {
+  background: #ffffff;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 0.2rem 0.8rem rgba(0,0,0,0.08);
+  transition: transform 0.3s ease;
+}
+
+.number-static > div:hover {
+  transform: translateY(-0.3rem);
+}
+
+.number-static p {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+  /* max-width: 10rem; */
+}
+
+.number-static p:nth-child(2) {
+  font-size: 1rem;
+  margin-top: 0.6rem;
+  font-weight: 700;
+  
+}
+
+/* CHART AREA */
+.members-chart {
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 0.2rem 0.8rem rgba(0,0,0,0.08);
+}
+
+.members-chart h4 {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.active-members-chart {
+  width: 100%;
+  height: 35vh;
+  border-radius: 1rem;
+  background: #e9effb;
+}
+
+/* OTHER SECTION */
+.other {
+  background: #ffffff;
+  height: 20vh;
+  border-radius: 1rem;
+  box-shadow: 0 0.2rem 0.8rem rgba(0,0,0,0.08);
+}
+
+/* EVENT RIGHT SIDE */
+.event {
+  background: #ffffff;
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 0.2rem 0.8rem rgba(0,0,0,0.08);
+}
+
+.attendece {
+  width: 100%;
+  height: 60vh;
+  background: #f0f4ff;
+  border-radius: 1rem;
+}
+
+/* RESPONSIVE 960px */
+@media (max-width: 60rem) {
+  .home-page {
+    grid-template-columns: 1fr;
+  }
+  .event {
+    height: auto;
+  }
+}
+
+/* RESPONSIVE 480px */
+@media (max-width: 30rem) {
+  .home-page {
+    padding: 1.2rem;
+    gap: 1.2rem;
+  }
+
+  .number-static {
+    grid-template-columns: 1fr;
+  }
+
+  .members-chart, .other, .event {
+    padding: 1.2rem;
+  }
+
+  .active-members-chart {
+    height: 28vh;
+  }
+
+  .number-static p {
+    font-size: 1rem;
+  }
+
+  .number-static p:nth-child(2) {
+    font-size: 1.3rem;
+  }
+
+  .event {
+    padding: 1.2rem;
+  }
+
+  .attendece {
+    height: 40vh;
+  }
+}
