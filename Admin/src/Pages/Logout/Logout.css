@@ -1,0 +1,88 @@
+.logout-container {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* Gradient background */
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  animation: gradientMove 8s ease infinite alternate;
+}
+
+/* gradient animation */
+@keyframes gradientMove {
+  0% { background: linear-gradient(135deg, #6a11cb, #2575fc); }
+  100% { background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); }
+}
+
+.logout-card {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  padding: 40px 60px;
+  border-radius: 18px;
+  text-align: center;
+  color: white;
+
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+
+  /* animation */
+  animation: popup 0.5s ease forwards;
+}
+
+@keyframes popup {
+  0% { transform: scale(0.6); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.logout-card h1 {
+  font-size: 26px;
+  margin-bottom: 25px;
+  font-weight: 600;
+}
+
+.logout-card button {
+  padding: 12px 22px;
+  margin: 10px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 600;
+  transition: 0.3s ease;
+}
+
+/* Yes button */
+.logout-card button:first-child {
+  background-color: #ff4b5c;
+  color: white;
+}
+.logout-card button:first-child:hover {
+  background-color: #d63245;
+}
+
+/* No button */
+.logout-card button:nth-child(2) {
+  background-color: #ffffff;
+  color: #2575fc;
+}
+.logout-card button:nth-child(2):hover {
+  background-color: #e0e0e0;
+}
+
+/* Mobile Responsive */
+@media (max-width: 600px) {
+  .logout-card {
+    width: 85%;
+    padding: 25px;
+  }
+
+  .logout-card h1 {
+    font-size: 20px;
+  }
+
+  .logout-card button {
+    padding: 10px 15px;
+    font-size: 16px;
+  }
+}

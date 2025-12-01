@@ -18,13 +18,14 @@ const Logout = () => {
                 }
     }
   return (
-    <div className='logout-container'>
-        <div className="logout-card">
-            <h1>Are you want to logout</h1>
-            <button onClick={logoutHandler}>Yes</button>
-            <button onClick={()=>{navigate(-1)}}>No</button>
-        </div>
-    </div>
+   <div className='logout-container'>
+  <div className="logout-card">
+      <h1>Are you want to logout</h1>
+      <button onClick={logoutHandler}>Yes</button>
+      <button onClick={()=>{navigate(-1)}}>No</button>
+  </div>
+</div>
+
   )
 }
 

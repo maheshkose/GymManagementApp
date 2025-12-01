@@ -6,7 +6,7 @@ import {
   updateEmployeeById,
   deleteEmployeeById,
 } from "../Controllers/employeeCon.js";
-import { isAdminAuthenticated } from "../middleware/auth.js"; // optional admin protection
+import { isAdminAuthenticated } from '../Middlewares/authentication.js' ;
 
 const employeeRouter = express.Router();
 
