@@ -225,7 +225,6 @@ const UpdateMember = () => {
     <div className="form-row">
       <label>Gender</label>
       <select name="gender" value={data.gender} onChange={handleChange} required>
-        <option value="">Select Gender</option>
         <option value="male">Male</option>
         <option value="female">Female</option>
         <option value="other">Other</option>
@@ -244,7 +243,7 @@ const UpdateMember = () => {
         }}
         required
       >
-        <option value="">Select Plan</option>
+        
         {plans && plans.length !== 0 ? (
           plans.map((plan, i) => (
             <option key={i} value={plan._id}>

@@ -170,7 +170,7 @@ const AddEmployee = () => {
               onChange={handleChange}
               required
             >
-              <option value="">Select Gender</option>
+              
               <option value="male">Male</option>
               <option value="female">Female</option>
               <option value="other">Other</option>
@@ -180,7 +180,7 @@ const AddEmployee = () => {
           <div className="form-group">
             <label>Role</label>
             <select name="role" onChange={handleChange}>
-                {["Select Role","trainer", "receptionist", "accountant", "cleaner", "manager"].map((role,i)=>(
+                {["trainer", "receptionist", "accountant", "cleaner", "manager"].map((role,i)=>(
                     <option key={i} value={role}>{role.toUpperCase()}</option>
                 ))}
             </select>

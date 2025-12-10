@@ -211,7 +211,7 @@ const UpadateEmployee = () => {
               onChange={handleChange}
               required
             >
-              <option value="">Select Gender</option>
+              
               <option value="male">Male</option>
               <option value="female">Female</option>
               <option value="other">Other</option>
@@ -222,7 +222,6 @@ const UpadateEmployee = () => {
             <label>Role</label>
             <select name="role" onChange={handleChange}>
               {[
-                "Select Role",
                 "trainer",
                 "receptionist",
                 "accountant",

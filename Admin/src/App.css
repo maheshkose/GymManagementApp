@@ -50,6 +50,7 @@
 .main-content {
   /* grid-area: main; */
   padding: 20px;
+  padding-bottom: 50px;
   background-color: white;
   overflow-y: auto;
 }

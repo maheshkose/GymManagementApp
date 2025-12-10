@@ -16,7 +16,7 @@ const UpdatePlan = ({
     duration: planData.duration,
     description: planData.description,
     price: planData.price,
-    features: planData.features,
+    features: planData.features.join(','),
     discount: planData.discount,
     planType: planData.planType,
   });
