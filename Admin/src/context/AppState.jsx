@@ -9,6 +9,7 @@ export const AppContextHook = () => {
 
 const AppState = ({ children }) => {
   //api base urll
+  // const apiUrl = "http://localhost:3000/api";
   const apiUrl = "http://localhost:3000/api";
 
   const [spinner, setSpinner] = useState(false);

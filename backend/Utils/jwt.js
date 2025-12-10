@@ -12,11 +12,11 @@ export const generateCookies = async (user, res) => {
       // sameSite: process.env.NODE_ENV === 'Production' ? 'None' : 'Lax',
       
     //localhost
-    secure:false,
-    sameSite:"lax"
+    // secure:false,
+    // sameSite:"lax"
     // production 
-    // secure:true,
-    // sameSite:"none"
+    secure:true,
+    sameSite:"none"
     })
     .status(200)
     .json({

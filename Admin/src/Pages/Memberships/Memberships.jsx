@@ -3,7 +3,7 @@ import AddPlan from "../../Components/AddPlan/AddPlan";
 import { AppContextHook } from "../../context/AppState";
 import { MdCurrencyRupee } from "react-icons/md";
 import { toast } from "react-toastify";
-import "./MemberShips.css";
+import "./Memberships.css";
 import UpdatePlan from "../../Components/updatePlan/UpdatePlan";
 
 const Memberships = () => {
