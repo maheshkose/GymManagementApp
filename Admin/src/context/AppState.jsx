@@ -10,7 +10,7 @@ export const AppContextHook = () => {
 const AppState = ({ children }) => {
   //api base urll
   // const apiUrl = "http://localhost:3000/api";
-  const apiUrl = "http://localhost:3000/api";
+  const apiUrl = "https://gymmanagementapp-backend.onrender.com/api";
 
   const [spinner, setSpinner] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
