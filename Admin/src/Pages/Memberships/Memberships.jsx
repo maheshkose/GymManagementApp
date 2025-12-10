@@ -4,7 +4,7 @@ import { AppContextHook } from "../../context/AppState";
 import { MdCurrencyRupee } from "react-icons/md";
 import { toast } from "react-toastify";
 import "./Memberships.css";
-import UpdatePlan from "../../Components/updatePlan/UpdatePlan";
+import UpdatePlan from '../../Components/UpdatePlan/UpdatePlan'
 
 const Memberships = () => {
   const { updatePlan, deletePlan, addPlan, getAllPlans, getPlanById } =
