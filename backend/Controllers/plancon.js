@@ -23,6 +23,7 @@ export const createPlan = catchAsyncErrors(async (req, res, next) => {
   if (existingPlan) {
     return next(new ErrorHandler("A plan with this name already exists", 400));
   }
+  const featuresArray = features.split(',');
 
   // Create Plan
   const newPlan = await Plan.create({
@@ -30,7 +31,7 @@ export const createPlan = catchAsyncErrors(async (req, res, next) => {
     duration,
     description,
     price,
-    features: features || [],
+    features: featuresArray || [],
     discount: discount || 0,
     planType: planType || "basic",
     // finalPrice is auto-calculated by schema default function
@@ -45,9 +46,11 @@ export const createPlan = catchAsyncErrors(async (req, res, next) => {
 });
 
 export const updatePlan = catchAsyncErrors(async (req, res, next) => {
-  const { planId,name, duration, description, price, features, discount, planType } = req.body;
+  const { planId} = req.params;
+  const {name, duration, description, price, features, discount, planType } = req.body;
+  const featuresArray = features.split(',');
 
-  const updateData = { name, duration, description, price, features, discount, planType };
+  const updateData = { name, duration, description, price, features:featuresArray, discount, planType };
 
   
  

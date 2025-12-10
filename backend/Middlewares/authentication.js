@@ -6,9 +6,12 @@ import User from '../Models/userModels.js';
 export const isAdminAuthenticated = catchAsyncErrors(async (req, res, next) => {
 
   const token = req.cookies.admin_token;
+  
+  // console.log('token',req.cookies.admin_token);
+  
 
   if (!token) {
-    return next(new ErrorHandler("Admin authentication token not found", 401));
+    return next(new ErrorHandler("Admin authentication token not found at middleware", 401));
   }
 
   let decodedData;

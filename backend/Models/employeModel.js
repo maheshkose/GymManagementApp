@@ -52,7 +52,12 @@ const employeeSchema = new mongoose.Schema(
                 type:Date,
                 default:Date.now
             },
-            amount:{
+            paidAmount:{
+                type:Number,
+                required:true,
+                default:0
+            },
+            dueAmount:{
                 type:Number,
                 required:true,
                 default:0
@@ -71,8 +76,8 @@ const employeeSchema = new mongoose.Schema(
     },
 
     profileImage: {
-      public_id: { type: String },
-      secure_url: { type: String },
+      public_id: { type: String,default:"" },
+      secure_url: { type: String,default:"" },
     },
     attendance: [
       {
@@ -101,3 +106,4 @@ const employeeSchema = new mongoose.Schema(
 
 const Employee =  mongoose.model("Employee", employeeSchema);
 export default Employee;
+

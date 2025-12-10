@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import './AddPlan.css'
+import { AppContextHook } from "../../context/AppState";
+import { toast } from "react-toastify";
+import { ImCross } from "react-icons/im";
 
-const AddPlan = () => {
+const AddPlan = ({showAddPlanForm, setshowAddPlanForm,getAllPlanHandler}) => {
+  const {addPlan, } = AppContextHook();
   const [data, setData] = useState({
     name: "",
     duration: "",
@@ -16,17 +20,31 @@ const AddPlan = () => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("plan data:", data);
-    // Here you can add API call to submit data
+   const res = await addPlan(data);
+           if (res?.data?.success) {
+               toast.success(res.data.message);
+                setshowAddPlanForm(false);
+                getAllPlanHandler();
+           }else{
+               toast.error(res.response?.data?.message)
+           
+           }
   };
 
   return (
     <div className="add-plan">
       <form onSubmit={handleSubmit}>
+        
+      <div className="form-header">
         <h2>Add Plan</h2>
+        <h3 onClick={()=>{setshowAddPlanForm(false)}}><ImCross/></h3>
+      </div>
+      <div className="form-group-grid">
 
+     
         <div className="form-group">
           <label>Plan Name</label>
           <input
@@ -57,9 +75,9 @@ const AddPlan = () => {
             onChange={handleChange}
           >
             <option value="">Select type</option>
-            <option value="Basic">Basic</option>
-            <option value="Premium">Premium</option>
-            <option value="VIP">VIP</option>
+            <option value="basic">Basic</option>
+            <option value="premium">Premium</option>
+            <option value="standard">Standard</option>
           </select>
         </div>
 
@@ -105,6 +123,7 @@ const AddPlan = () => {
           />
         </div>
 
+ </div>
         <button type="submit" className="submit-btn">
           Add Plan
         </button>

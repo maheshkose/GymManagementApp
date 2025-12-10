@@ -17,7 +17,7 @@ const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(data);
+        // console.log(data);
         const res = await login(data);
         if (res?.data?.success) {
             toast.success(res.data.message);

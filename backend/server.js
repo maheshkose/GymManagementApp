@@ -7,6 +7,9 @@ import cloudinaryConnection from './library/cloudinary.js';
 import { sendEmail } from './library/Gmail.js';
 import userRouter from './Routes/userRoutes.js';
 import membersRouter from './Routes/membersRoute.js';import cookieParser from "cookie-parser";
+import fileUpload from "express-fileupload";
+
+
 
 dotenv.config();
 
@@ -19,12 +22,14 @@ import './library/planCheck.js';
 import planRouter from './Routes/planRoutes.js';
 import employeeRouter from './Routes/employeeRoutes.js';
 
+
 app.use(cookieParser());
+app.use(fileUpload({ useTempFiles: true }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({
     origin:['http://localhost:5173','http://localhost:5174',process.env.FRONTEND_URL,process.env.ADMIN_URL],
-    methods:['GET','POST','PUT','DELETE'],
+    methods:['GET','POST','PUT','DELETE','PATCH'],
     credentials:true
 }));
 
@@ -52,5 +57,7 @@ app.use(errorMiddleware);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`Server is running on port http://localhost:${PORT}`);
 });
+
+

@@ -5,6 +5,8 @@ import {
   getEmployeeById,
   updateEmployeeById,
   deleteEmployeeById,
+  addAttendenceOfEmployee,
+  deleteAttendenceOfEmployee,
 } from "../Controllers/employeeCon.js";
 
 import { isAdminAuthenticated } from "../Middlewares/authentication.js";
@@ -17,15 +19,19 @@ const employeeRouter = express.Router();
 employeeRouter.post("/add", isAdminAuthenticated, addEmployee);
 
 // Get all employees (protected route)
-employeeRouter.get("/", isAdminAuthenticated, getAllEmployee);
+employeeRouter.get("/getAllEmployee", isAdminAuthenticated, getAllEmployee);
 
 // Get single employee by ID (protected route)
-employeeRouter.get("/:id", isAdminAuthenticated, getEmployeeById);
+employeeRouter.get("/getEmployeeById/:id", isAdminAuthenticated, getEmployeeById);
 
 // Update employee by ID (protected route)
-employeeRouter.put("/:id", isAdminAuthenticated, updateEmployeeById);
+employeeRouter.put("/updateEmployeeById/:id", isAdminAuthenticated, updateEmployeeById);
 
 // Delete employee by ID (protected route)
-employeeRouter.delete("/:id", isAdminAuthenticated, deleteEmployeeById);
+employeeRouter.delete("/deleteEmployeeById/:id", isAdminAuthenticated, deleteEmployeeById);
 
+//Add attendence of employee
+employeeRouter.get('/addAttendenceOfEmployee/:id',isAdminAuthenticated, addAttendenceOfEmployee);
+//delete attendence of employee
+employeeRouter.post('/deleteAttendenceOfEmployee',isAdminAuthenticated, deleteAttendenceOfEmployee);
 export default employeeRouter;

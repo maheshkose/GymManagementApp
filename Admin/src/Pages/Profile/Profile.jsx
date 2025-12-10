@@ -1,6 +1,8 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const Profile = () => {
+    const navigate = useNavigate();
   return (
     <div className='profile-page'>
         <div className="admin-card">
@@ -16,7 +18,7 @@ const Profile = () => {
 
                 </div>
                 <div className="button">
-                    <button>Add new Admin</button>
+                    <button onClick={()=>{navigate('/verifyEmail')}}>Add new Admin</button>
                 </div>
             </div>
         </div>

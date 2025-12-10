@@ -1,14 +1,14 @@
 /* App.css or your stylesheet */
 .outer-container{
   background-color: black;
-  padding: 3vw;
+  padding-top: 1vw;
 }
 .app {
   display: grid;
   grid-template-areas:
     "sidebar pages"
     "sidebar pages"
-    "footer footer";
+    "sidebar pages";
   grid-template-rows: 60px 1fr 40px; /* header height, main content flexible, footer height */
   grid-template-columns: 250px 1fr; /* sidebar width, main content flexible */
    height: 100vh; /*full viewport height */
@@ -67,9 +67,18 @@
 @media (max-width: 480px) {
   .app{
     grid-template-columns:70px 1fr;
+    grid-template-areas:
+    "pages pages"
+    "pages pages"
+    "sidebar sidebar ";
   }
-  .sidebar {
+  .sidebar-el {
+    width: 100%;
     position: fixed;
+    bottom: 0;
+    left:0;
     z-index: 999;
+    flex-direction: row;
+    /* overflow: hidden; */
   }
 }

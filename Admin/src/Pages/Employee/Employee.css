@@ -1,0 +1,145 @@
+.employee-page {
+  width: 100%;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.add-employee-button {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+
+.add-employee-button button {
+  background: linear-gradient(135deg, #4c6ef5, #15aabf);
+  border: none;
+  padding: 12px 25px;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.add-employee-button button:hover {
+  transform: scale(1.05);
+}
+
+.employee-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+}
+/* ============ Employee Cards ============ */
+.employee-card {
+  width: 100%;
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 15px 20px;
+  margin-bottom: 25px;
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.12);
+  transition: 0.3s ease;
+}
+
+.employee-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.18);
+}
+
+.pro-name-email {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.member-profile-img img {
+  width: 110px;
+  height: 110px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid #4c6ef5;
+  box-shadow: 0 4px 12px rgba(76, 110, 245, 0.4);
+}
+
+.name-email h3 {
+  font-size: 20px;
+  margin: 0;
+}
+
+.name-email h4 {
+  font-size: 14px;
+  color: #666;
+  margin: 3px 0;
+}
+
+.plan-details {
+  margin-top: 10px;
+}
+
+.members-nav ul {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding-top: 12px;
+}
+
+.members-nav ul li {
+  display: flex;
+  /* gap: 8px; */
+  align-items: center;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.25s ease;
+}
+
+.members-nav ul li:hover {
+  color: #4c6ef5;
+  transform: translateY(-3px);
+}
+
+/* =================== Responsive =================== */
+
+/* Tablet */
+@media (max-width: 768px) {
+  .pro-name-email {
+    flex-direction: row;
+    text-align: center;
+  }
+
+  .members-nav ul {
+    /* flex-wrap: wrap; */
+    gap: 12px;
+  }
+
+  .member-profile-img img {
+    width: 120px;
+    height: 120px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .employee-card {
+    padding: 15px;
+  }
+
+  .name-email h3 {
+    font-size: 18px;
+  }
+
+  .members-nav ul {
+    flex-direction: row;
+    gap: 5px;
+  }
+
+  .add-employee-button {
+    justify-content: center;
+  }
+
+  .add-employee-button button {
+    width: 100%;
+    text-align: center;
+  }
+}

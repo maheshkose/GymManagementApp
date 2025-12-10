@@ -1,0 +1,173 @@
+.updateMember-page {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 888;
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  padding: 3rem 0;
+
+
+  /* Animated gradient background */
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+
+  background-size: 400% 400%;
+  animation: gradientBG 8s ease infinite;
+}
+
+/* Keyframes for gradient animation */
+@keyframes gradientBG {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.updateMember-form {
+  width: 500px;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+
+  padding: 2rem;
+  border-radius: 15px;
+
+  /* Deep shadow */
+  box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.25),
+    0px 0px 15px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(12px);
+
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.form-grid-m{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  justify-content: center;
+}
+
+/* Head */
+.form-header-m {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.form-header-m h2 {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+/* Inputs & labels */
+.form-row {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-row label {
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.form-row input,
+.form-row select {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 16px;
+  transition: 0.3s ease;
+}
+
+.form-row input:focus,
+.form-row select:focus {
+  outline: none;
+  border-color: #00d4ff;
+  box-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+}
+
+/* Submit button with gradient animation */
+.submit-btn {
+  margin-top: 0.5rem;
+  width: 100%;
+  padding: 14px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: white;
+  border-radius: 10px;
+  transition: 0.4s;
+
+  background: linear-gradient(45deg, #5a00ff, #00c6ff);
+  background-size: 200% 200%;
+  animation: buttonAnim 4s ease infinite;
+}
+
+/* Button animation */
+@keyframes buttonAnim {
+  0% {
+    background-position: left;
+  }
+  50% {
+    background-position: right;
+  }
+  100% {
+    background-position: left;
+  }
+}
+
+.submit-btn:hover {
+  box-shadow: 0px 5px 15px rgba(0, 212, 255, 0.6);
+  transform: translateY(-2px);
+}
+
+/* Image preview */
+.image-preview-container {
+  text-align: center;
+}
+
+.preview-img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+  border: 3px solid white;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.25);
+}
+
+/* Responsive Media Queries */
+@media (max-width: 768px) {
+  .updateMember-form {
+    width: 90%;
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .form-grid-m{
+  
+  grid-template-columns:  1fr;
+  gap: 1rem;
+}
+  .form-header-m h2 {
+    font-size: 1.5rem;
+  }
+  .submit-btn {
+    font-size: 1rem;
+  }
+  .preview-img {
+    width: 100px;
+    height: 100px;
+  }
+}

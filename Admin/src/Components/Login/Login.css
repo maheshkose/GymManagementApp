@@ -9,7 +9,7 @@
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 998;                    /* Strong layer */
+  z-index: 1000;                    /* Strong layer */
   animation: fadeIn 0.6s ease-in-out;
 }
 
@@ -91,7 +91,7 @@
   background: linear-gradient(130deg,#ff0066,#ff3366);
   border: none;
   border-radius: 10px;
-  color: white;
+  color: #333;
   font-size: 20px;
   cursor: pointer;
   font-weight: 600;
@@ -101,6 +101,7 @@
 .login-btn:hover{
   transform: translateY(-3px);
   box-shadow: 0 8px 20px rgba(255,0,102,0.5);
+  color: #fff;
 }
 
 .signup-link{

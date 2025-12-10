@@ -16,7 +16,7 @@ const SideBar = () => {
             <img src="/vite.svg" alt="" />
         </div>
         <nav>
-        <NavLink to={'/'} active>
+        <NavLink to={'/'} active="true">
             <p>
                 <RxDashboard/> 
                 <span>Dashboard</span>

@@ -69,7 +69,7 @@
 }
 
 /* ================= MEDIA QUERIES ================= */
-@media (max-width: 900px) {
+@media (max-width: 780px) {
   .header-container {
     flex-direction: column;
     align-items: flex-start;
@@ -83,12 +83,17 @@
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 480px) {
   .search {
     display: none; /* Hide search on very small screens */
   }
 
   .header .left h1 {
     font-size: 22px;
+  }
+  .header-container {
+    flex-direction:row;
+    align-items: flex-start;
+    gap: 12px;
   }
 }

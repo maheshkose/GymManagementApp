@@ -26,11 +26,11 @@ const App = () => {
               <Header />
             </div>
             <div className="main-content">
-              main content
+              
               <AppRoutes />
             </div>
           </div>
-          <div className="footer">footer</div>
+          {/* <div className="footer">footer</div> */}
           <ToastContainer
             position="top-right"
             autoClose={5000}
