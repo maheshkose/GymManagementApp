@@ -66,7 +66,7 @@ const Employee = () => {
       </div>
       <div className="employee-grid">
         {employees && employees.length !== 0 ? (
-          employees.map((employee, i) => (
+          employees?.map((employee, i) => (
             <div key={i} className="employee-card member-card">
               <div className="pro-name-email">
                 <div className="member-profile-img">
@@ -83,16 +83,16 @@ const Employee = () => {
                 </div>
                 <div className="name-email">
                   <h3>{employee.name}</h3>
-                  <h4>{employee.email}</h4>
-                  <p>{employee.address}</p>
-                  <p>+91-{employee.phone}</p>
+                  <h4>{employee?.email}</h4>
+                  <p>{employee?.address}</p>
+                  <p>+91-{employee?.phone}</p>
                 </div>
               </div>
               <div className="plan-details">
                 <p className="join-date">
                   Join Date :{" "}
                   <strong>
-                    {new Date(employee.joiningDate).toLocaleDateString(
+                    {new Date(employee?.joiningDate).toLocaleDateString(
                       "en-GB",
                       {
                         day: "2-digit",
@@ -102,33 +102,33 @@ const Employee = () => {
                     )}
                   </strong>
                 </p>
-                <p>Salary : <strong>{employee.salary}</strong></p>
+                <p>Salary : <strong>{employee?.salary}</strong></p>
               </div>
               <hr />
               <div className="members-nav">
                 <ul>
                   <li
                     onClick={() => {
-                      navigate(`/employeeDetails/${employee._id}`);
+                      navigate(`/employeeDetails/${employee?._id}`);
                     }}
                   >
                     <CgProfile /> <span>Profile</span>
                   </li>
                   <li
                     onClick={() => {
-                      navigate(`/employeeupdate/${employee._id}`);
+                      navigate(`/employeeupdate/${employee?._id}`);
                     }}
                   >
                     <FaUserEdit /> <span>Edit</span>
                   </li>
                   <li
                     onClick={() => {
-                      addAttendenceHandler(employee._id);
+                      addAttendenceHandler(employee?._id);
                     }}
                   >
                     <CiSquareCheck /> <span>CheckIn</span>
                   </li>
-                  <li>
+                  <li onClick={()=>{navigate(`/paySalary/${employee?._id}`)}}>
                     <MdOutlineAutorenew /> <span>Pay Salary</span>
                   </li>
                   <li>

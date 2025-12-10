@@ -95,20 +95,20 @@
 
 }
 
-.gym-plans {
+.salary-paid-array {
   display: flex;
   justify-content: center;
   
   flex-direction: column;
 }
-.plans-list{
+.salary-list{
 margin-top: 20px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 15px;
 }
 
-.plan-card {
+.salary-card {
   background: white;
   border-radius: 12px;
   padding: 15px;
@@ -116,7 +116,7 @@ margin-top: 20px;
   animation: slideUp 0.5s ease;
 }
 
-.plan-card ul {
+.salary-card ul {
   list-style: none;
   padding: 0;
   display: grid;
@@ -124,22 +124,22 @@ margin-top: 20px;
   gap: 1rem;
 }
 
-.plan-card ul li {
+.salary-card ul li {
   display: flex;
   justify-content: space-between;
   padding: 6px 0;
   font-size: 15px;
 }
 
-.plan-card ul li span {
+.salary-card ul li span {
   font-weight: 600;
 }
 
-.plan-card ul li:last-child span {
+.salary-card ul li:last-child span {
   color: red;    /* DUE AMOUNT RED */
 }
 
-.plan-card hr {
+.salary-card hr {
   border: none;
   height: 2px;
   background: linear-gradient(to right,#bbb,#888,#bbb);

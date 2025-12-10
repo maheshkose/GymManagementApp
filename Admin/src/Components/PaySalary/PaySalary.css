@@ -1,4 +1,4 @@
-.add-employee {
+.pay-salary {
   position: fixed;
   top: 0;
   left: 0;
@@ -9,7 +9,7 @@
   justify-content: center;
   align-items: center;
   overflow-y: auto;
-  padding: 20px 0 100px 0;
+  padding-bottom: 100px;
 
   background: linear-gradient(135deg, #1e3c72, #2a5298, #6dd5ed);
   background-size: 300% 300%;
@@ -22,7 +22,7 @@
   100% { background-position: 0% 50%; }
 }
 
-.add-employee-form {
+.pay-salary-form {
   width: 70%;
   height: 100%;
   max-width: 900px;
@@ -41,17 +41,17 @@
   to { transform: scale(1); opacity: 1; }
 }
 
-.add-e-header {
+.pay-salary-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.add-e-header h3 {
+.pay-salary-header h3 {
   cursor: pointer;
   transition: transform 0.3s, color 0.3s;
 }
-.add-e-header h3:hover {
+.pay-salary-header h3:hover {
   transform: scale(1.2);
   color: red;
 }
@@ -116,7 +116,7 @@ button[type="submit"]:hover {
     grid-template-columns: 1fr;
   }
 
-  .add-employee-form {
+  .pay-salary form {
     width: 95%;
     padding: 15px;
   }

@@ -21,6 +21,7 @@ connectDb();
 import './library/planCheck.js';
 import planRouter from './Routes/planRoutes.js';
 import employeeRouter from './Routes/employeeRoutes.js';
+import financeRouter from './Routes/finaceRoute.js';
 
 
 app.use(cookieParser());
@@ -50,6 +51,7 @@ app.use('/api/user',userRouter);
 app.use('/api/members',membersRouter);
 app.use('/api/plan',planRouter); 
 app.use('/api/employee',employeeRouter); 
+app.use('/api/finance',financeRouter); 
 
 
 //error middleware

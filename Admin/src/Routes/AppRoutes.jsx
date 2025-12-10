@@ -13,6 +13,7 @@ import Employeeprofile from '../Components/Employeeprofile/Empolyeeprofile';
 import UpadateEmployee from '../Components/UpdateEmployee/UpdateEmployee';
 import VerifyEmail from '../Components/VerifyEmail/VerifyEmail';
 import RenewMemberPlan from '../Components/RenewMemberPlan/RenewMemberPlan';
+import PaySalary from '../Components/PaySalary/PaySalary';
 const AppRoutes = () => {
   return (
     
@@ -30,6 +31,7 @@ const AppRoutes = () => {
         <Route path='/employeeDetails/:id' element={<Employeeprofile />}/>
         <Route path='/verifyEmail' element={<VerifyEmail />}/>
         <Route path='/renewPlan/:id' element={<RenewMemberPlan />}/>
+        <Route path='/paySalary/:id' element={<PaySalary />}/>
         
     </Routes>
 )

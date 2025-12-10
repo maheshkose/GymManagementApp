@@ -5,7 +5,7 @@
   display: flex;
   justify-content: center;
   align-items:start;
-  padding: 3rem 0;
+  padding: 3rem 0 100px 0;
   overflow-y: scroll;
   scrollbar-width: none;
   position: fixed;

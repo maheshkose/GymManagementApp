@@ -106,7 +106,9 @@ const Employeeprofile = () => {
           : ""}
       </div>
       <div className="salary-paid-array">
-        {employee.salaryPaid && employee.salaryPaid.length !== 0?
+        <h1>Salary Paid history</h1>
+        <div className="salary-list">
+          {employee.salaryPaid && employee.salaryPaid.length !== 0?
           employee.salaryPaid.map((s,i)=>(
             <div key={i} className="salary-card">
               <ul>
@@ -129,7 +131,8 @@ const Employeeprofile = () => {
               </ul>
             </div>
           ))
-        :""}
+        :<h4>No salary history</h4>}
+        </div>
       </div>
     </div>
   );

@@ -7,6 +7,7 @@ import {
   deleteEmployeeById,
   addAttendenceOfEmployee,
   deleteAttendenceOfEmployee,
+  paySalary,
 } from "../Controllers/employeeCon.js";
 
 import { isAdminAuthenticated } from "../Middlewares/authentication.js";
@@ -34,4 +35,6 @@ employeeRouter.delete("/deleteEmployeeById/:id", isAdminAuthenticated, deleteEmp
 employeeRouter.get('/addAttendenceOfEmployee/:id',isAdminAuthenticated, addAttendenceOfEmployee);
 //delete attendence of employee
 employeeRouter.post('/deleteAttendenceOfEmployee',isAdminAuthenticated, deleteAttendenceOfEmployee);
+
+employeeRouter.post("/paySalary/:id",isAdminAuthenticated,paySalary);
 export default employeeRouter;
