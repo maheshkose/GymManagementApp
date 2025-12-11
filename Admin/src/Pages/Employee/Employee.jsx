@@ -11,6 +11,7 @@ import { FaUserEdit } from "react-icons/fa";
 import { CiSearch, CiSquareCheck } from "react-icons/ci";
 import { MdOutlineAutorenew } from "react-icons/md";
 import { RiDeleteBin2Line } from "react-icons/ri";
+import { TbPointFilled } from "react-icons/tb";
 
 const Employee = () => {
   const {
@@ -23,19 +24,21 @@ const Employee = () => {
     deleteEmployeeAttendenceById,
   } = AppContextHook();
   const [employees, setemployees] = useState([]);
+  const [allEmployees, setallEmployees] = useState([]);
   const navigate = useNavigate();
   const getAllEmployeeHandler = async () => {
     const res = await getAllEmployee();
     if (res?.data?.success) {
       toast.success(res.data.message);
       setemployees(res.data.allEmployees);
+      setallEmployees(res.data.allEmployees);
     } else {
       toast.error(res.response?.data?.message);
     }
   };
 
-    const [searchQuery, setsearchQuery] = useState("");
-    const [searchResultArray, setsearchResultArray] = useState([]);
+  const [searchQuery, setsearchQuery] = useState("");
+  const [searchResultArray, setsearchResultArray] = useState([]);
   const addAttendenceHandler = async (id) => {
     const res = await addEmployeeAttendenceById(id);
     if (res?.data?.success) {
@@ -62,50 +65,52 @@ const Employee = () => {
     setsearchQuery(value);
     // console.log(allEmployees);
     if (value === "") {
-      setsearchResultArray([]);
+      // setsearchResultArray([]);
+      setemployees(allEmployees);
       return;
     }
-    const searchResult = employees?.filter((empl) =>
+    const searchResult = allEmployees?.filter((empl) =>
       empl.name.toLowerCase().includes(value)
     );
     // console.log('searchResult',searchResult);
-    setsearchResultArray(searchResult);
+    // setsearchResultArray(searchResult);
+    setemployees(searchResult);
   };
 
   return (
     <div className="employee-page">
       <div className="add-employee-button">
-         <div className="search">
-                    <form>
-                      <input
-                        type="text"
-                        placeholder="search employee"
-                        className="search-input"
-                        value={searchQuery}
-                        onChange={OnSearchChangeHandler}
-                      />
-                      <CiSearch />
-                    </form>
-                    <div className="search-suggestion-container">
-                      {searchResultArray && searchResultArray.length !== 0 ? (
-                        <ul className="search-sugg-ul">
-                          {searchResultArray?.map((s, i) => (
-                            <li
-                              key={i}
-                              className="search-suggestion-li"
-                              onClick={() => {
-                                navigate(`/employeeDetails/${s?._id}`);
-                              }}
-                            >
-                              {s.name}
-                            </li>
-                          ))}
-                        </ul>
-                      ) : (
-                        ""
-                      )}
-                    </div>
-                  </div>
+        <div className="search">
+          <form>
+            <input
+              type="text"
+              placeholder="search employee"
+              className="search-input"
+              value={searchQuery}
+              onChange={OnSearchChangeHandler}
+            />
+            <CiSearch />
+          </form>
+          <div className="search-suggestion-container">
+            {searchResultArray && searchResultArray.length !== 0 ? (
+              <ul className="search-sugg-ul">
+                {searchResultArray?.map((s, i) => (
+                  <li
+                    key={i}
+                    className="search-suggestion-li"
+                    onClick={() => {
+                      navigate(`/employeeDetails/${s?._id}`);
+                    }}
+                  >
+                    {s.name}
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              ""
+            )}
+          </div>
+        </div>
         <button
           onClick={() => {
             navigate("/addEmployee");
@@ -118,6 +123,14 @@ const Employee = () => {
         {employees && employees.length !== 0 ? (
           employees?.map((employee, i) => (
             <div key={i} className="employee-card member-card">
+              {employee?.isActive ? (
+                <div className="is-active">
+                  {" "}
+                  <TbPointFilled />{" "}
+                </div>
+              ) : (
+                ""
+              )}
               <div className="pro-name-email">
                 <div className="member-profile-img">
                   <img
@@ -152,7 +165,15 @@ const Employee = () => {
                     )}
                   </strong>
                 </p>
-                <p>Salary : <strong>{employee?.salary}</strong></p>
+                <p>
+                  Salary : <strong>{employee?.salary}</strong>
+                </p>
+                <p>
+                  Role : <strong>{employee?.role}</strong>
+                </p>
+                <p>
+                  Gender : <strong>{employee?.gender}</strong>
+                </p>
               </div>
               <hr />
               <div className="members-nav">
@@ -178,10 +199,18 @@ const Employee = () => {
                   >
                     <CiSquareCheck /> <span>CheckIn</span>
                   </li>
-                  <li onClick={()=>{navigate(`/paySalary/${employee?._id}`)}}>
+                  <li
+                    onClick={() => {
+                      navigate(`/paySalary/${employee?._id}`);
+                    }}
+                  >
                     <MdOutlineAutorenew /> <span>Pay Salary</span>
                   </li>
-                  <li>
+                  <li
+                    onClick={() => {
+                      navigate(`/deleteEmployee/${employee?._id}`);
+                    }}
+                  >
                     <RiDeleteBin2Line /> <span>Delete</span>
                   </li>
                 </ul>

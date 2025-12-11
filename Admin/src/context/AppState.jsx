@@ -9,8 +9,8 @@ export const AppContextHook = () => {
 
 const AppState = ({ children }) => {
   //api base urll
-  // const apiUrl = "http://localhost:3000/api";
-  const apiUrl = "https://gymmanagementapp-backend.onrender.com/api";
+  const apiUrl = "http://localhost:3000/api";
+  // const apiUrl = "https://gymmanagementapp-backend.onrender.com/api";
 
   const [spinner, setSpinner] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -276,7 +276,7 @@ const AppState = ({ children }) => {
       setSpinner(false);
     }
   };
-  const deleteEmployeeById = async (data) => {
+  const deleteEmployeeById = async (id) => {
     setSpinner(true);
 
     try {
@@ -428,7 +428,7 @@ const AppState = ({ children }) => {
     setSpinner(true);
 
     try {
-      const res = await axios.get(`${apiUrl}/members/deleteMemberById/${id}`, {
+      const res = await axios.delete(`${apiUrl}/members/deleteMemberById/${id}`, {
         withCredentials: true,
       });
       console.log("deleteMemberById res", res);

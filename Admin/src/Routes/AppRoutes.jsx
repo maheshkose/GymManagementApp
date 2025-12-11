@@ -14,6 +14,12 @@ import UpadateEmployee from '../Components/UpdateEmployee/UpdateEmployee';
 import VerifyEmail from '../Components/VerifyEmail/VerifyEmail';
 import RenewMemberPlan from '../Components/RenewMemberPlan/RenewMemberPlan';
 import PaySalary from '../Components/PaySalary/PaySalary';
+import DeleteMember from '../Components/DeleteMember/DeleteMember';
+import DeleteEmployee from '../Components/DeleteEmployee/DeleteEmployee';
+import Finance from '../Pages/Finance/Finance';
+import AddExpense from '../Pages/Finance/AddExpense/AddExpense';
+import ExpenseList from '../Pages/Finance/ExpenseList/ExpenseList';
+import RevenueList from '../Pages/Finance/RevenueList/RevenueList';
 const AppRoutes = () => {
   return (
     
@@ -22,6 +28,7 @@ const AppRoutes = () => {
         <Route path='/profile' element={<Profile />}/>
         <Route path='/memberships' element={<Memberships />}/>
         <Route path='/employee' element={<Employee />}/>
+        <Route path='/finance' element={<Finance />}/>
         <Route path='/addEmployee' element={<AddEmployee />}/>
         <Route path='/members' element={<Members />}/>
         <Route path='/logout' element={<Logout />}/>
@@ -32,6 +39,13 @@ const AppRoutes = () => {
         <Route path='/verifyEmail' element={<VerifyEmail />}/>
         <Route path='/renewPlan/:id' element={<RenewMemberPlan />}/>
         <Route path='/paySalary/:id' element={<PaySalary />}/>
+        <Route path='/deleteMember/:id' element={<DeleteMember />}/>
+        <Route path='/deleteEmployee/:id' element={<DeleteEmployee />}/>
+        <Route path='/add-expense' element={<AddExpense />}/>
+        <Route path='/expense-list' element={<ExpenseList />}/>
+        <Route path='/revenue-list' element={<RevenueList />}/>
+        
+
         
     </Routes>
 )

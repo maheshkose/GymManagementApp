@@ -23,6 +23,7 @@ const Members = () => {
   const [showAddMember, setshowAddMember] = useState(false);
 
   const [members, setMembers] = useState([]);
+  const [allMembers, setallMembers] = useState([]);
   const [searchQuery, setsearchQuery] = useState("");
   const [searchResultArray, setsearchResultArray] = useState([]);
 
@@ -31,6 +32,7 @@ const Members = () => {
     if (res?.data?.success) {
       toast.success(res.data.message);
       setMembers(res.data.allLiveMembers);
+      setallMembers(res.data.allLiveMembers)
     } else {
       toast.error(res.response?.data?.message);
     }
@@ -40,6 +42,7 @@ const Members = () => {
     if (res?.data?.success) {
       toast.success(res.data.message);
       setMembers(res.data.allExpiredMembers);
+      setallMembers(res.data.allExpiredMembers);
     } else {
       toast.error(res.response?.data?.message);
     }
@@ -49,6 +52,7 @@ const Members = () => {
     if (res?.data?.success) {
       toast.success(res.data.message);
       setMembers(res.data.allMembers);
+      setallMembers(res.data.allMembers);
     } else {
       toast.error(res.response?.data?.message);
     }
@@ -77,14 +81,16 @@ const Members = () => {
     setsearchQuery(value);
     // console.log(allEmployees);
     if (value === "") {
-      setsearchResultArray([]);
+      // setsearchResultArray([]);
+      setMembers(allMembers);
       return;
     }
-    const searchResult = members?.filter((empl) =>
+    const searchResult = allMembers?.filter((empl) =>
       empl.name.toLowerCase().includes(value)
     );
     // console.log('searchResult',searchResult);
-    setsearchResultArray(searchResult);
+    // setsearchResultArray(searchResult);
+    setMembers(searchResult);
   };
   return (
     <div className="members-page">
@@ -94,7 +100,7 @@ const Members = () => {
             <form>
               <input
                 type="text"
-                placeholder="search employee"
+                placeholder="search member"
                 className="search-input"
                 value={searchQuery}
                 onChange={OnSearchChangeHandler}
@@ -265,7 +271,9 @@ const Members = () => {
                   >
                     <MdOutlineAutorenew /> <span>Renew</span>
                   </li>
-                  <li>
+                  <li onClick={() => {
+                      navigate(`/deleteMember/${member._id}`);
+                    }}>
                     <RiDeleteBin2Line /> <span>Delete</span>
                   </li>
                 </ul>

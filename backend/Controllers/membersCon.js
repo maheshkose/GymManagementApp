@@ -4,6 +4,8 @@ import { v2 as cloudinary } from "cloudinary";
 import ErrorHandler from "../Middlewares/ErrorHandler.js";
 import Members from "../Models/membersModel.js";
 import Plan from "../Models/planModels.js";
+import Revenue from "../Models/revenueModel.js";
+import { addRevenue } from "./finaceCon.js";
 
 export const addMember = catchAsyncErrors(async (req, res, next) => {
   const profileImage = req.files?.profileImage;
@@ -111,6 +113,9 @@ export const addMember = catchAsyncErrors(async (req, res, next) => {
     attendence: [],
     profileImage: profileImageData, // store null if not uploaded
   });
+
+  //adding revenue
+  // const revenue =  addRevenue('Membership',`New Member ${name} email ${email} Added this payment`,paidAmount,newMember._id,'paymentMethode',req.user.Id,"invoiceNumber",{public_id:"",secure_url:""})
 
   res.status(201).json({
     success: true,
@@ -251,6 +256,9 @@ export const updateMemberById = catchAsyncErrors(async (req, res, next) => {
       : data.paidAmount > 0
       ? "partial"
       : "pending";
+
+    
+  
   const updatedMember = {
     name: data.name,
     email: data.email,
@@ -267,6 +275,13 @@ export const updateMemberById = catchAsyncErrors(async (req, res, next) => {
       paymentStatus: paymentStatus,
     },
   };
+  const existingMember = await Members.findById(id);
+  if (!member) {
+    return next(new ErrorHandler("Member not found"), 400);
+  }
+  // if (existingMember.paidAmount !== updatedMember.paidAmount) {
+  //     const revenue =  addRevenue('Membership',`Member clears due payment ${data.name} email ${data.email} Added this payment`,updatedMember.paidAmount,id,'paymentMethode',req.user.Id,"invoiceNumber",{public_id:"",secure_url:""})
+  // }
 
   const member = await Members.findByIdAndUpdate(id, updatedMember, {
     new: true,
@@ -438,6 +453,3 @@ export const renewmembersPlan = catchAsyncErrors(async (req, res, next) => {
     member,
   });
 });
-
-
-

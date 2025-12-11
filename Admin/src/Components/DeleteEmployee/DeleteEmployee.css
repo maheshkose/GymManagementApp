@@ -1,0 +1,74 @@
+.delete-member-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.delete-m-pop-up {
+  background: #fff;
+  padding: 2rem 2.5rem;
+  border-radius: 14px;
+  width: 380px;
+  text-align: center;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  animation: popIn 0.25s ease-out;
+}
+
+.delete-m-pop-up h1 {
+  font-size: 1.3rem;
+  margin-bottom: 1.8rem;
+  color: #333;
+  font-weight: 600;
+}
+
+.btn-group {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.delete-m-pop-up button {
+  padding: 0.7rem 1.4rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.delete-m-pop-up .yes {
+  background: #e34646;
+  color: #fff;
+}
+
+.delete-m-pop-up .yes:hover {
+  background: #c73636;
+}
+
+.delete-m-pop-up .no {
+  background: #eaeaea;
+  color: #333;
+}
+
+.delete-m-pop-up .no:hover {
+  background: #d5d5d5;
+}
+
+@keyframes popIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}

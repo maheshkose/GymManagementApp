@@ -42,6 +42,7 @@
   margin-bottom: 25px;
   box-shadow: 0 5px 18px rgba(0, 0, 0, 0.12);
   transition: 0.3s ease;
+  position: relative;
 }
 
 .employee-card:hover {
@@ -99,7 +100,16 @@
   color: #4c6ef5;
   transform: translateY(-3px);
 }
-
+.is-active{
+  position: absolute;
+  top: 4px;
+  right: 4px;
+}
+.is-active svg{
+  color: greenyellow;
+  font-size: 2rem;
+  
+}
 /* =================== Responsive =================== */
 
 /* Tablet */

@@ -25,7 +25,7 @@ const AddMember = ({ showAddMember, setshowAddMember,getAllLiveMembersHandler })
   }, []);
   useEffect(() => {
     setSelectedPlan(plans[0]);
-    setData({...data,["plan"]:plans[0]?._id})
+    // setData({...data,["plan"]:plans[0]?._id})
   }, [plans]);
 
   useEffect(() => {
@@ -190,8 +190,9 @@ const AddMember = ({ showAddMember, setshowAddMember,getAllLiveMembersHandler })
           value={data.gender}
           onChange={handleChange}
           required
+          placeholder="select gender"
         >
-          
+          <option value="">Choose Gender</option>
           <option value="male">Male</option>
           <option value="female">Female</option>
           <option value="other">Other</option>
@@ -208,6 +209,7 @@ const AddMember = ({ showAddMember, setshowAddMember,getAllLiveMembersHandler })
             const chosen = plans.find((p) => p._id === e.target.value);
             setSelectedPlan(chosen);
           }}
+          placeholder="select plan"
           required
         >
           <option value="">Choose Plan</option>

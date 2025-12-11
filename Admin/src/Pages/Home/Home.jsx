@@ -60,7 +60,7 @@ const Home = () => {
       <div className="statics">
         <div className="number-static">
           <div className="finacial-statics">
-            <p>
+            <p onClick={()=>{navigate('/finance')}}>
               <HiDocumentCurrencyRupee />
               <span>Finacial Statics</span>
             </p>
