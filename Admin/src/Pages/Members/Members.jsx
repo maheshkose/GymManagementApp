@@ -5,20 +5,26 @@ import { AppContextHook } from "../../context/AppState";
 import { toast } from "react-toastify";
 import { CgProfile } from "react-icons/cg";
 import { FaUserEdit } from "react-icons/fa";
-import { CiSquareCheck } from "react-icons/ci";
+import { CiSearch, CiSquareCheck } from "react-icons/ci";
+import { TiUserAdd } from "react-icons/ti";
 import { RiDeleteBin2Line } from "react-icons/ri";
 import { MdOutlineAutorenew } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 
-
 const Members = () => {
-  const { getAllMembers, getAllExpiredMembers, getAllLiveMembers,addAttendence } =
-    AppContextHook();
-  const navigate  = useNavigate();
-  
+  const {
+    getAllMembers,
+    getAllExpiredMembers,
+    getAllLiveMembers,
+    addAttendence,
+  } = AppContextHook();
+  const navigate = useNavigate();
+
   const [showAddMember, setshowAddMember] = useState(false);
-  
+
   const [members, setMembers] = useState([]);
+  const [searchQuery, setsearchQuery] = useState("");
+  const [searchResultArray, setsearchResultArray] = useState([]);
 
   const getAllLiveMembersHandler = async () => {
     const res = await getAllLiveMembers();
@@ -47,8 +53,8 @@ const Members = () => {
       toast.error(res.response?.data?.message);
     }
   };
-   const addAttendenceHandler = async (userId) => {
-    const res = await addAttendence({userId});
+  const addAttendenceHandler = async (userId) => {
+    const res = await addAttendence({ userId });
     if (res?.data?.success) {
       toast.success(res.data.message);
     } else {
@@ -56,30 +62,72 @@ const Members = () => {
     }
   };
 
-
   useEffect(() => {
     getAllLiveMembersHandler();
   }, []);
   console.log("members", members);
 
   if (!members && members.length === 0) {
-    return (
-      <></>
-    )
+    return <></>;
   }
+
+  const OnSearchChangeHandler = (e) => {
+    const value = e.target.value.toLowerCase().trim();
+
+    setsearchQuery(value);
+    // console.log(allEmployees);
+    if (value === "") {
+      setsearchResultArray([]);
+      return;
+    }
+    const searchResult = members?.filter((empl) =>
+      empl.name.toLowerCase().includes(value)
+    );
+    // console.log('searchResult',searchResult);
+    setsearchResultArray(searchResult);
+  };
   return (
     <div className="members-page">
-      
-      
       <div className="memeber-nav">
         <div className="left add-members">
+          <div className="search">
+            <form>
+              <input
+                type="text"
+                placeholder="search employee"
+                className="search-input"
+                value={searchQuery}
+                onChange={OnSearchChangeHandler}
+              />
+              <CiSearch />
+            </form>
+            <div className="search-suggestion-container">
+              {searchResultArray && searchResultArray.length !== 0 ? (
+                <ul className="search-sugg-ul">
+                  {searchResultArray?.map((s, i) => (
+                    <li
+                      key={i}
+                      className="search-suggestion-li"
+                      onClick={() => {
+                        navigate(`/memberDetails/${s?._id}`);
+                      }}
+                    >
+                      {s.name}
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                ""
+              )}
+            </div>
+          </div>
           <button
             onClick={() => {
               setshowAddMember(!showAddMember);
             }}
           >
-            {" "}
-            {showAddMember ? "Cancel" : "Add New Member"}
+            <TiUserAdd />
+            <span>{showAddMember ? "Cancel" : "Add New Member"}</span>
           </button>
         </div>
         <ul className="nav right">
@@ -147,41 +195,43 @@ const Members = () => {
                 <p className="join-date">
                   Join Date :{" "}
                   <strong>
-                    {new Date(member.currentPlan.planStartingDate).toLocaleDateString(
-                      "en-GB",
-                      {
-                        day: "2-digit",
-                        month: "short",
-                        year: "numeric",
-                      }
-                    )}
+                    {new Date(
+                      member.currentPlan.planStartingDate
+                    ).toLocaleDateString("en-GB", {
+                      day: "2-digit",
+                      month: "short",
+                      year: "numeric",
+                    })}
                   </strong>
                 </p>
                 <p className="end-date">
                   End Date :{" "}
                   <strong>
-                    {new Date(member.currentPlan.planEndingDate).toLocaleDateString(
-                      "en-GB",
-                      {
-                        day: "2-digit",
-                        month: "short",
-                        year: "numeric",
-                      }
-                    )}
+                    {new Date(
+                      member.currentPlan.planEndingDate
+                    ).toLocaleDateString("en-GB", {
+                      day: "2-digit",
+                      month: "short",
+                      year: "numeric",
+                    })}
                   </strong>
                 </p>
                 <p>
                   Plan : <strong>{member?.currentPlan.plan?.name}</strong>
                 </p>
                 <p>
-                  Final Amt : <strong>{member?.currentPlan.plan?.finalPrice}</strong>
+                  Final Amt :{" "}
+                  <strong>{member?.currentPlan.plan?.finalPrice}</strong>
                 </p>
                 <p>
                   Paid Amt : <strong>{member?.currentPlan.paidAmount}</strong>
                 </p>
                 <p>
                   Due :{" "}
-                  <strong>{member?.currentPlan.plan?.finalPrice - member?.currentPlan.paidAmount}</strong>
+                  <strong>
+                    {member?.currentPlan.plan?.finalPrice -
+                      member?.currentPlan.paidAmount}
+                  </strong>
                 </p>
               </div>
               <hr />
@@ -194,13 +244,25 @@ const Members = () => {
                   >
                     <CgProfile /> <span>Profile</span>
                   </li>
-                  <li onClick={()=>{navigate(`/memberupdate/${member._id}`)}}>
+                  <li
+                    onClick={() => {
+                      navigate(`/memberupdate/${member._id}`);
+                    }}
+                  >
                     <FaUserEdit /> <span>Edit</span>
                   </li>
-                  <li onClick={()=>{addAttendenceHandler(member._id)}}>
+                  <li
+                    onClick={() => {
+                      addAttendenceHandler(member._id);
+                    }}
+                  >
                     <CiSquareCheck /> <span>CheckIn</span>
                   </li>
-                  <li onClick={()=>{navigate(`/renewPlan/${member._id}`)}}>
+                  <li
+                    onClick={() => {
+                      navigate(`/renewPlan/${member._id}`);
+                    }}
+                  >
                     <MdOutlineAutorenew /> <span>Renew</span>
                   </li>
                   <li>
@@ -211,7 +273,7 @@ const Members = () => {
             </div>
           ))
         ) : (
-          <h1 style={{color:"#222"}}>No Members Found</h1>
+          <h1 style={{ color: "#222" }}>No Members Found</h1>
         )}
       </div>
     </div>

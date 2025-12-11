@@ -112,7 +112,7 @@ const Memberprofile = () => {
             {
             revArray?.map((plan,i)=>(
                 <div key={i} className="plan-card">
-                    <p><strong>{plan.plan.name}</strong></p>
+                    <p><strong>{plan?.plan?.name}</strong></p>
                     <hr />
                     <ul>
                         <li>Start Date <span>{new Date(plan.planStartingDate).toLocaleDateString("en-GB", {

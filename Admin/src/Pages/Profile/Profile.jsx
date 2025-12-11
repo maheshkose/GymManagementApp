@@ -8,7 +8,7 @@ const Profile = () => {
         <div className="admin-card">
             <div className="up">
                 <div className="profile-img">
-                    <img src="" alt="" />
+                    <img src="/defaul-pi.jpg" alt="" />
                 </div>
                 <div className="name-email">
                     <h2>Mahesh</h2>

@@ -9,6 +9,7 @@
   display: flex;
   justify-content: flex-end;
   margin-bottom: 20px;
+  gap: 2rem;
 }
 
 .add-employee-button button {
@@ -135,6 +136,7 @@
   }
 
   .add-employee-button {
+    flex-direction: column;
     justify-content: center;
   }
 

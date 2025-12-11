@@ -24,6 +24,10 @@ const errorMiddleware = (err, req, res, next) => {
         err.message = 'JSON Web Token is expired, try again';
         err.statusCode = 400;
         }
+        if (err.name === "Network Error") {
+             err.message = 'Network Error';
+        err.statusCode = 500;
+        }
 
     res.status(statusCode).json({
         success: false,

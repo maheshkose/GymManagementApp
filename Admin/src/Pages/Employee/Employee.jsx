@@ -8,7 +8,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
 import { FaUserEdit } from "react-icons/fa";
-import { CiSquareCheck } from "react-icons/ci";
+import { CiSearch, CiSquareCheck } from "react-icons/ci";
 import { MdOutlineAutorenew } from "react-icons/md";
 import { RiDeleteBin2Line } from "react-icons/ri";
 
@@ -33,6 +33,9 @@ const Employee = () => {
       toast.error(res.response?.data?.message);
     }
   };
+
+    const [searchQuery, setsearchQuery] = useState("");
+    const [searchResultArray, setsearchResultArray] = useState([]);
   const addAttendenceHandler = async (id) => {
     const res = await addEmployeeAttendenceById(id);
     if (res?.data?.success) {
@@ -53,9 +56,56 @@ const Employee = () => {
     getAllEmployeeHandler();
   }, []);
 
+  const OnSearchChangeHandler = (e) => {
+    const value = e.target.value.toLowerCase().trim();
+
+    setsearchQuery(value);
+    // console.log(allEmployees);
+    if (value === "") {
+      setsearchResultArray([]);
+      return;
+    }
+    const searchResult = employees?.filter((empl) =>
+      empl.name.toLowerCase().includes(value)
+    );
+    // console.log('searchResult',searchResult);
+    setsearchResultArray(searchResult);
+  };
+
   return (
     <div className="employee-page">
       <div className="add-employee-button">
+         <div className="search">
+                    <form>
+                      <input
+                        type="text"
+                        placeholder="search employee"
+                        className="search-input"
+                        value={searchQuery}
+                        onChange={OnSearchChangeHandler}
+                      />
+                      <CiSearch />
+                    </form>
+                    <div className="search-suggestion-container">
+                      {searchResultArray && searchResultArray.length !== 0 ? (
+                        <ul className="search-sugg-ul">
+                          {searchResultArray?.map((s, i) => (
+                            <li
+                              key={i}
+                              className="search-suggestion-li"
+                              onClick={() => {
+                                navigate(`/employeeDetails/${s?._id}`);
+                              }}
+                            >
+                              {s.name}
+                            </li>
+                          ))}
+                        </ul>
+                      ) : (
+                        ""
+                      )}
+                    </div>
+                  </div>
         <button
           onClick={() => {
             navigate("/addEmployee");
