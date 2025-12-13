@@ -12,7 +12,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 const Home = () => {
-  const { getAllLiveMembers, getAllEmployee, getmembersStats,totalExpenses,totalRevenew } =
+  const { getAllLiveMembers, getAllEmployee, getmembersStats,totalExpenses,totalRevenew,isLoggedIn } =
     AppContextHook();
   const [liveMemberCount, setliveMemberCount] = useState(0);
   const [liveEmployeeCount, setliveEmployeeCount] = useState(0);
@@ -66,7 +66,7 @@ const Home = () => {
     getAllEmployeeHandler();
     getmembersStatsHandler();
     totalRevenewHandler();
-  }, []);
+  }, [isLoggedIn]);
  
   
 
