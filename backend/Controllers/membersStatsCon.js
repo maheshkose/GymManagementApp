@@ -11,7 +11,7 @@ export const getMembersStats = catchAsyncErrors(async (req,res,next) => {
     if (!membersStats || membersStats.length === 0) {
         return next(new ErrorHandler('Members Stats not found',400));
     }
-    console.log(membersStats);
+    // console.log(membersStats);
     
 
 //     const firstDayStats = membersStats[0].statsArray.filter(stat => {

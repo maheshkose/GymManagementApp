@@ -3,8 +3,10 @@ import './Login.css'
 import { MdEmail, MdPassword } from 'react-icons/md'
 import { AppContextHook } from '../../context/AppState'
 import { toast } from 'react-toastify'
+import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
+    const navigate = useNavigate();
     const {login} = AppContextHook();
     const [data, setdata] = useState({
         email:"",
@@ -21,6 +23,7 @@ const Login = () => {
         const res = await login(data);
         if (res?.data?.success) {
             toast.success(res.data.message);
+            navigate('/');
         }else{
             toast.error(res.response?.data?.message)
         

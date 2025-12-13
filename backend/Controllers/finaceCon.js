@@ -112,7 +112,7 @@ export const getRevenueVsExpense = catchAsyncErrors(async (req, res, next) => {
       },
     },
   ]);
-  console.log('monthlyRevenue',monthlyRevenue);
+
   
 
   // 4️⃣ Monthly expense
