@@ -12,7 +12,7 @@ const Logout = () => {
         const res = await logout();
                 if (res?.data?.success) {
                     toast.success(res.data.message);
-                    
+                    navigate('/');
                 }else{
                     toast.error(res.response?.data?.message)
                 }
