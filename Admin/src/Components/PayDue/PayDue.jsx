@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
-import "./RenewMemberPlan.css";
+import "./PayDue.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { AppContextHook } from "../../context/AppState";
 import { ImCross } from "react-icons/im";
 import "../AddMember/AddMember.css";
 import { toast } from "react-toastify";
 
-const RenewMemberPlan = () => {
-  const { renewMemberPlan, getAllPlans, getMemberById } = AppContextHook();
+const PayDue = () => {
+  const { getMemberById,payDueAmount } = AppContextHook();
   const navigate = useNavigate();
   const { id } = useParams();
-  const [plans, setPlans] = useState([]);
+  // const [plans, setPlans] = useState([]);
   const [member, setmember] = useState({});
   console.log("current member", member);
   const [data, setData] = useState({
@@ -30,16 +30,16 @@ const RenewMemberPlan = () => {
     profileImage: null,
   });
 
-  const getAllPlanHandler = async () => {
-    //fetch all plans from backend
-    const res = await getAllPlans();
-    if (res?.data?.success) {
-      setPlans(res.data?.allPlans);
-      // toast.success(res.data.message);
-    } else {
-      toast.error(res.response?.data?.message);
-    }
-  };
+  // const getAllPlanHandler = async () => {
+  //   //fetch all plans from backend
+  //   const res = await getAllPlans();
+  //   if (res?.data?.success) {
+  //     setPlans(res.data?.allPlans);
+  //     // toast.success(res.data.message);
+  //   } else {
+  //     toast.error(res.response?.data?.message);
+  //   }
+  // };
   const getMemberByIdHandler = async () => {
     console.log("getMemberById");
 
@@ -55,7 +55,7 @@ const RenewMemberPlan = () => {
     const fn = async () => {
       await getMemberByIdHandler();
 
-      await getAllPlanHandler();
+      // await getAllPlanHandler();
       
     };
     fn();
@@ -68,14 +68,14 @@ const RenewMemberPlan = () => {
         email: member.email,
         address: member.address,
         gender: member.gender,
-        plan: "",
-        planStartingDate: "",
-        planEndingDate: "",
+        plan: member.currentPlan.plan,
+        planStartingDate: member.currentPlan.planStartingDate,
+        planEndingDate: member.currentPlan.planEndingDate,
         paymentMethod:"",
-        totalPrice: "",
-        discount: "",
+        totalPrice: member.currentPlan.finalPrice,
+        discount: member.currentPlan.discount,
         paidAmount: "",
-        dueAmount:"",
+        dueAmount:member.currentPlan.dueAmount,
         profileImage: null,
       });
     }
@@ -92,68 +92,27 @@ const RenewMemberPlan = () => {
 
     setData((prev)=>{
       const update = {...prev,[name]:value}
-
-      if (name === "planStartingDate" ) {
-         const newPlan = plans.find((p)=> p._id === prev.plan);
-        const endDate = new Date(value);
-        endDate.setDate(endDate.getDate() + (newPlan?.duration));
-        update.planEndingDate = endDate.toISOString().split("T")[0];
-      }
-      if (name==="plan") {
-        const newPlan = plans.find((p)=> p._id === value);
-
-        update.discount = newPlan.discount;
-        update.totalPrice = newPlan.finalPrice;
-        if(prev.planStartingDate && newPlan)
-       { const endDate = new Date(data.planStartingDate);
-        const duration = (newPlan?.duration || 0);
-        endDate.setDate(endDate.getDate() + duration );
-        update.planEndingDate = endDate.toISOString().split("T")[0];}
-      }
-      if (name === "paidAmount") {
-        const newPlan = plans.find((p)=> p._id === prev.plan);
-        const dueAmount = newPlan?.finalPrice - value;
-        update.dueAmount = dueAmount;
-      }
       return update;
     });
   };
 
   // handle image file selection
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    setData({ ...data, profileImage: file });
+  // const handleImageChange = (e) => {
+  //   const file = e.target.files[0];
+  //   setData({ ...data, profileImage: file });
 
-    // preview image
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onloadend = () => {
-      setPreview(reader.result);
-    };
-  };
+  //   // preview image
+  //   const reader = new FileReader();
+  //   reader.readAsDataURL(file);
+  //   reader.onloadend = () => {
+  //     setPreview(reader.result);
+  //   };
+  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(data);
-    //   const payLoad = new FormData();
-
-    //   payLoad.append("name", data.name);
-    //   payLoad.append("phone", data.phone);
-    //   payLoad.append("email", data.email);
-    //   payLoad.append("address", data.address);
-    //   payLoad.append("gender", data.gender);
-    //   payLoad.append("plan", data.plan);
-    //   payLoad.append("planStartingDate", data.planStartingDate);
-    //   payLoad.append("totalPrice", data.totalPrice);
-    //   payLoad.append("discount", data.discount);
-    //   payLoad.append("paidAmount", data.paidAmount);
-
-    //   // profileImage must be a File object (if using input type file)
-    //   if (data.profileImage instanceof File) {
-    //   payLoad.append("profileImage", data.profileImage);
-    // }
-
-    const res = await renewMemberPlan(member._id, 
+    const res = await payDueAmount(member._id, 
       data
     );
     if (res?.data?.success) {
@@ -170,10 +129,10 @@ const RenewMemberPlan = () => {
   console.log("data", data);
 
   return (
-   <div className="renewMember-page">
-  <form onSubmit={handleSubmit} className="renewMember-form ">
+   <div className="paydue-page">
+  <form onSubmit={handleSubmit} className="paydue-form ">
 
-    <div className="form-header-r">
+    <div className="form-header-p">
       <h2>Renew Member</h2>
       <h3 onClick={() => navigate(-1)}>
         <ImCross />
@@ -187,17 +146,11 @@ const RenewMemberPlan = () => {
       ) : (
         <div className="preview-placeholder">Image Preview</div>
       )}
-      <input
-        type="file"
-        accept="image/*"
-        onChange={handleImageChange}
-        className="image-input"
-        disabled
-      />
+      
     </div>
 
     {/* Form Grid */}
-    <div className="form-grid-r">
+    <div className="form-grid-p">
 
       <div className="form-row">
         <label>Name</label>
@@ -221,7 +174,7 @@ const RenewMemberPlan = () => {
         />
       </div>
 
-      <div className="form-row">
+      {/* <div className="form-row">
         <label>Phone</label>
         <input
           type="text"
@@ -256,9 +209,9 @@ const RenewMemberPlan = () => {
           <option value="female">Female</option>
           <option value="other">Other</option>
         </select>
-      </div>
+      </div> */}
 
-      <div className="form-row">
+      {/* <div className="form-row">
         <label>Select Plan</label>
         <select
           name="plan"
@@ -268,7 +221,7 @@ const RenewMemberPlan = () => {
             // const chosen = plans.find((p) => p._id === e.target.value);
             // setSelectedPlan(chosen);
           }}
-          required
+          disabled={true}
         >
           <option value="">Choose Plan</option>
           {plans?.length ? (
@@ -281,20 +234,20 @@ const RenewMemberPlan = () => {
             <option>No plans</option>
           )}
         </select>
-      </div>
+      </div> */}
 
-      <div className="form-row">
+      {/* <div className="form-row">
         <label>Plan Starting Date</label>
         <input
           type="date"
           name="planStartingDate"
           value={data.planStartingDate?.slice(0, 10) || ""}
           onChange={handleChange}
-          required
-          disabled={data.plan === ""}
+          
+          disabled={true}
         />
-      </div>
-      <div className="form-row">
+      </div> */}
+      {/* <div className="form-row">
         <label>Plan Ending Date</label>
         <input
           type="date"
@@ -305,7 +258,7 @@ const RenewMemberPlan = () => {
           // readOnly
           disabled={true}
         />
-      </div>
+      </div> */}
       <div className="form-row">
             <label>Select Payment method</label>
             <select
@@ -327,7 +280,7 @@ const RenewMemberPlan = () => {
             </select>
           </div>
 
-      <div className="form-row">
+      {/* <div className="form-row">
         <label>Total Price</label>
         <input
           type="number"
@@ -345,19 +298,9 @@ const RenewMemberPlan = () => {
           value={data.discount}
           disabled
         />
-      </div>
+      </div> */}
 
-      <div className="form-row">
-        <label>Paid Amount</label>
-        <input
-          type="number"
-          name="paidAmount"
-          value={data.paidAmount}
-          onChange={handleChange}
-          required
-        />
-      </div>
-      <div className="form-row">
+<div className="form-row">
         <label>Due Amount</label>
         <input
           type="number"
@@ -368,11 +311,22 @@ const RenewMemberPlan = () => {
           readOnly
         />
       </div>
+      <div className="form-row">
+        <label>Amount</label>
+        <input
+          type="number"
+          name="paidAmount"
+          value={data.paidAmount}
+          onChange={handleChange}
+          required
+        />
+      </div>
+      
 
     </div>
 
     <button type="submit" className="submit-btn">
-      Renew Member
+     PayDue
     </button>
 
   </form>
@@ -381,4 +335,4 @@ const RenewMemberPlan = () => {
   );
 };
 
-export default RenewMemberPlan;
+export default PayDue;

@@ -56,9 +56,9 @@ const expenseSchema = new mongoose.Schema({
         default: Date.now
     },
 
-    receiptImage: {
-        type: String, // Cloudinary URL or file path
-        default: null
+    receiptImage:{
+     public_id: { type: String,default:"" },
+      secure_url: { type: String,default:"" },
     },
 
     isRecurring: {
@@ -71,7 +71,7 @@ const expenseSchema = new mongoose.Schema({
         enum: ["Daily", "Weekly", "Monthly", "Yearly", null],
         default: null
     }
-});
+},{timestamps:true});
 
 const Expense =  mongoose.model("Expense", expenseSchema);
 export default Expense;

@@ -5,6 +5,7 @@ const revenueSchema = new mongoose.Schema({
         type: String,
         enum: [
             "Membership",
+            "Membership Due Amount Payed",
             "Personal Training",
             "Product Sale",
             "Supplements",
@@ -52,14 +53,14 @@ const revenueSchema = new mongoose.Schema({
     invoiceNumber: {
         type: String,
         unique: true,
-        default: null
+        default: () => `INV-${Date.now()}`
     },
 
     receiptImage: {
      public_id: { type: String,default:"" },
       secure_url: { type: String,default:"" },
     }
-});
+},{timestamps:true});
 
 const Revenue = mongoose.model("Revenue", revenueSchema);
 export default Revenue;

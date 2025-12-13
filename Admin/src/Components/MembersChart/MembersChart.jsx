@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import './MembersChart.css';
 import {
   LineChart,
   Line,
@@ -17,23 +18,98 @@ const data = [
 ];
 
 const MemberLineChart = ({ memberStats }) => {
-  
-  
-  const modifiedmembers = memberStats?.map((m) => {
+  const [dailyChart, setdailyChart] = useState([]);
+  const [weeklyChart, setweeklyChart] = useState([]);
+  const [monthlyChart, setmonthlyChart] = useState([]);
+  const [quarterlyChart, setquarterlyChart] = useState([]);
+  const [yearlyChart, setyearlyChart] = useState([]);
+  const [membersChart, setMembersChart] = useState([]);
+
+  let modifiedmembers = memberStats?.map((m) => {
     return {
       date: new Date(m.date).toLocaleDateString("en-GB", {
-        day:"numeric",
+        day: "numeric",
         month: "short",
       }),
       membersCount: m.membersCount,
     };
   });
+  console.log("membersChart", membersChart);
 
-  
+ const modeChangeHandler = (e) => {
+  const value = e.target.value;
+  let modifiedMembers = [];
+
+  if (value === "daily") {
+    modifiedMembers = memberStats?.map(m => ({
+      date: new Date(m.date).toLocaleDateString("en-GB", {
+        day: "numeric",
+        month: "short",
+      }),
+      membersCount: m.membersCount,
+    }));
+  }
+
+  else if (value === "monthly") {
+    modifiedMembers = memberStats
+      ?.filter(m => new Date(m.date).getDate() === 1)
+      .map(m => ({
+        date: new Date(m.date).toLocaleDateString("en-GB", {
+          month: "short",
+          year: "numeric",
+        }),
+        membersCount: m.membersCount,
+      }));
+  }
+
+  else if (value === "quarterly") {
+    modifiedMembers = memberStats
+      ?.filter(m => {
+        const d = new Date(m.date);
+        return d.getDate() === 1 && [0, 3, 6, 9].includes(d.getMonth());
+      })
+      .map(m => ({
+        date: new Date(m.date).toLocaleDateString("en-GB", {
+          month: "short",
+          year: "numeric",
+        }),
+        membersCount: m.membersCount,
+      }));
+  }
+
+  else if (value === "yearly") {
+    modifiedMembers = memberStats
+      ?.filter(m => {
+        const d = new Date(m.date);
+        return d.getDate() === 1 && d.getMonth() === 0;
+      })
+      .map(m => ({
+        date: new Date(m.date).getFullYear(),
+        membersCount: m.membersCount,
+      }));
+  }
+
+  setMembersChart(modifiedMembers);
+};
+
+  useEffect(() => {
+    setMembersChart(modifiedmembers);
+  }, [memberStats]);
 
   return (
-    <ResponsiveContainer width="100%" height={300}>
-      <LineChart data={modifiedmembers}>
+    <div className="res-div">
+      <form className="chooseMode">
+        <select name="mode" onChange={modeChangeHandler}>
+          <option value="daily">Daily</option>
+
+          <option value="monthly">Monthly</option>
+          <option value="quarterly">Quarterly</option>
+          <option value="yearly">Yearly</option>
+        </select>
+      </form>
+    <ResponsiveContainer width="100%" height={300} >
+      
+      <LineChart data={membersChart}>
         {/* <CartesianGrid strokeDasharray="3 3" /> */}
         <XAxis dataKey="date" />
         <YAxis />
@@ -46,6 +122,7 @@ const MemberLineChart = ({ memberStats }) => {
         />
       </LineChart>
     </ResponsiveContainer>
+    </div>
   );
 };
 

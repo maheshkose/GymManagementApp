@@ -5,24 +5,24 @@ import MembersStats from "../Models/memberStats.js";
 
 export const getMembersStats = catchAsyncErrors(async (req,res,next) => {
     const targetDate = new Date("2025-12-01T06:21:32.726+00:00");
-    const membersStats = await MembersStats.find({});
+    const membersStats = await MembersStats.find();
 
 
-    if (!membersStats) {
+    if (!membersStats || membersStats.length === 0) {
         return next(new ErrorHandler('Members Stats not found',400));
     }
     console.log(membersStats);
     
 
-    const firstDayStats = membersStats[0].statsArray.filter(stat => {
-  const day = new Date(stat.date).getDate(); // or getUTCDate() if needed
-  return day === 1;
-});
+//     const firstDayStats = membersStats[0].statsArray.filter(stat => {
+//   const day = new Date(stat.date).getDate(); // or getUTCDate() if needed
+//   return day === 1;
+// });
 
     res.status(200).json({
         success:'true',
         messsage:"Members Stats Found",
-        membersStats:firstDayStats
+        membersStats
     })
 })
 const dateseed = (month)=>{
@@ -87,7 +87,7 @@ export const seedMembersStats = catchAsyncErrors(async (req,res,next) => {
         }
         
     ]
-    const membersStats = await MembersStats.create({statsArray:statsArray});
+    const membersStats = await MembersStats.insertMany(statsArray);
     if (!membersStats) {
         return next(new ErrorHandler('Members Stats not seed',400));
     }

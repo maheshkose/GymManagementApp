@@ -9,6 +9,7 @@ import { CiSearch, CiSquareCheck } from "react-icons/ci";
 import { TiUserAdd } from "react-icons/ti";
 import { RiDeleteBin2Line } from "react-icons/ri";
 import { MdOutlineAutorenew } from "react-icons/md";
+import { LuReceiptIndianRupee } from "react-icons/lu";
 import { useNavigate } from "react-router-dom";
 
 const Members = () => {
@@ -17,6 +18,7 @@ const Members = () => {
     getAllExpiredMembers,
     getAllLiveMembers,
     addAttendence,
+    payDueAmount
   } = AppContextHook();
   const navigate = useNavigate();
 
@@ -235,8 +237,7 @@ const Members = () => {
                 <p>
                   Due :{" "}
                   <strong>
-                    {member?.currentPlan.plan?.finalPrice -
-                      member?.currentPlan.paidAmount}
+                    {member?.currentPlan.dueAmount}
                   </strong>
                 </p>
               </div>
@@ -264,13 +265,20 @@ const Members = () => {
                   >
                     <CiSquareCheck /> <span>CheckIn</span>
                   </li>
-                  <li
+                   <li
                     onClick={() => {
                       navigate(`/renewPlan/${member._id}`);
                     }}
                   >
                     <MdOutlineAutorenew /> <span>Renew</span>
                   </li>
+                  {member?.currentPlan.dueAmount > 0 ?<li
+                    onClick={() => {
+                      navigate(`/payDue/${member._id}`);
+                    }}
+                  >
+                    <LuReceiptIndianRupee /> <span>Pay Due</span>
+                  </li>:""}
                   <li onClick={() => {
                       navigate(`/deleteMember/${member._id}`);
                     }}>

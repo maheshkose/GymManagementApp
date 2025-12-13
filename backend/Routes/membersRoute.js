@@ -1,7 +1,7 @@
 import express from "express"
 import mongoose from "mongoose"
 import { isAdminAuthenticated } from "../Middlewares/authentication.js";
-import { addAttendence, addMember, deleteAttendence, deleteMemberById, getAllExpiredMembers, getAllLiveMembers, getAllMembers, getMemberById, renewmembersPlan, updateMemberById } from "../Controllers/membersCon.js";
+import { addAttendence, addMember, deleteAttendence, deleteMemberById, getAllExpiredMembers, getAllLiveMembers, getAllMembers, getMemberById, payDueAmount, renewmembersPlan, updateMemberById } from "../Controllers/membersCon.js";
 import { getMembersStats, seedMembersStats } from "../Controllers/membersStatsCon.js";
 
 const membersRouter = express.Router();
@@ -23,6 +23,7 @@ membersRouter.get('/seedMembersStats', isAdminAuthenticated,seedMembersStats);
 
 //renew plan
 membersRouter.post('/renewPlan/:id',isAdminAuthenticated,renewmembersPlan);
+membersRouter.post('/payDueAmount/:id',isAdminAuthenticated,payDueAmount);
 
 
 export default membersRouter;

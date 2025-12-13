@@ -1,8 +1,7 @@
 import mongoose from "mongoose";
 
 const membersStatsSchema = mongoose.Schema({
-  statsArray: [
-    {
+  
       date: {
         type: Date,
         required: true,
@@ -11,9 +10,8 @@ const membersStatsSchema = mongoose.Schema({
         type:Number,
         required:true
       }
-    },
-  ],
-});
+   
+},{timestamps:true});
 
 const MembersStats = mongoose.model("MembersStats",membersStatsSchema);
 

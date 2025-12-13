@@ -1,0 +1,12 @@
+.res-div{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-items: start;
+}
+
+  
+
+ .chooseMode select{
+    color: black;
+ }

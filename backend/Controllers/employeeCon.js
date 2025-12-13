@@ -2,6 +2,7 @@ import catchAsyncErrors from "../Middlewares/catchAsyncErrors.js";
 import ErrorHandler from "../Middlewares/ErrorHandler.js";
 import Employee from "../Models/employeModel.js";
 import { v2 as cloudinary } from "cloudinary";
+import Expense from "../Models/expenseModel.js";
 export const addEmployee = catchAsyncErrors(async (req, res, next) => {
   const profileImage = req.files?.profileImage;
   let pImage = { public_id: "", secure_url: "" };
@@ -233,7 +234,7 @@ export const deleteAttendenceOfEmployee = catchAsyncErrors(
 export const paySalary = catchAsyncErrors(async (req, res, next) => {
   const { id } = req.params;
 
-  const { date, paidAmount } = req.body;
+  const { date, paidAmount,paymentMethod } = req.body;
   let employee = await Employee.findById(id);
   if (!employee) {
     return next(new ErrorHandler("Employee not found", 400));
@@ -244,10 +245,28 @@ export const paySalary = catchAsyncErrors(async (req, res, next) => {
     { $push: { salaryPaid: { date, paidAmount, dueAmount } } },
     { new: true, runValidators: true }
   );
-
   if (!employee) {
     return next(new ErrorHandler("Employee not updated", 400));
   }
+
+  const expense = await Expense.create({
+    title:`Salary`,
+    description:`Salary paid to ${employee.name}`,
+    amount:paidAmount,
+    category:"Salaries",
+    paymentMethod,
+    vendor:employee.email,
+    addedBy:req.user._id,
+    receiptImage:{public_id:"",secure_url:""},
+    isRecurring:true,
+    recurringPeriod:"Monthly",
+  });
+  
+  if (!expense) {
+    return next(new ErrorHandler("expense not created", 400));
+  }
+
+  
   res.status(200).json({
     success: true,
     message: "Salary Paid successfully",

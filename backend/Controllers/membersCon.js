@@ -4,10 +4,12 @@ import { v2 as cloudinary } from "cloudinary";
 import ErrorHandler from "../Middlewares/ErrorHandler.js";
 import Members from "../Models/membersModel.js";
 import Plan from "../Models/planModels.js";
-import Revenue from "../Models/revenueModel.js";
+
 import { addRevenue } from "./finaceCon.js";
+import Revenue from "../Models/revenueModel.js";
 
 export const addMember = catchAsyncErrors(async (req, res, next) => {
+  console.log("going to add");
   const profileImage = req.files?.profileImage;
 
   const {
@@ -21,6 +23,7 @@ export const addMember = catchAsyncErrors(async (req, res, next) => {
     totalPrice,
     discount,
     paidAmount,
+    paymentMethod,
   } = req.body;
 
   if (
@@ -32,8 +35,8 @@ export const addMember = catchAsyncErrors(async (req, res, next) => {
     !plan ||
     !planStartingDate ||
     !totalPrice ||
-    !discount ||
-    !paidAmount
+    !paidAmount ||
+    !paymentMethod
   ) {
     return next(new ErrorHandler("Please fill all required fields", 400));
   }
@@ -114,13 +117,24 @@ export const addMember = catchAsyncErrors(async (req, res, next) => {
     profileImage: profileImageData, // store null if not uploaded
   });
 
-  //adding revenue
-  // const revenue =  addRevenue('Membership',`New Member ${name} email ${email} Added this payment`,paidAmount,newMember._id,'paymentMethode',req.user.Id,"invoiceNumber",{public_id:"",secure_url:""})
+  const revenue = await Revenue.create({
+    source: "Membership",
+    description: `New Member ${name} email ${email} Added this payment`,
+    amount: paidAmount,
+    memberId: newMember._id,
+    paymentMethod,
+    receivedBy: req.user._id,
+    receiptImage: { public_id: "", secure_url: "" },
+  });
+  if (!revenue) {
+    return next(new ErrorHandler("revenue error", 400));
+  }
 
   res.status(201).json({
     success: true,
     message: "Member added successfully",
     member: newMember,
+    revenue,
   });
 });
 
@@ -257,8 +271,6 @@ export const updateMemberById = catchAsyncErrors(async (req, res, next) => {
       ? "partial"
       : "pending";
 
-    
-  
   const updatedMember = {
     name: data.name,
     email: data.email,
@@ -279,9 +291,6 @@ export const updateMemberById = catchAsyncErrors(async (req, res, next) => {
   if (!member) {
     return next(new ErrorHandler("Member not found"), 400);
   }
-  // if (existingMember.paidAmount !== updatedMember.paidAmount) {
-  //     const revenue =  addRevenue('Membership',`Member clears due payment ${data.name} email ${data.email} Added this payment`,updatedMember.paidAmount,id,'paymentMethode',req.user.Id,"invoiceNumber",{public_id:"",secure_url:""})
-  // }
 
   const member = await Members.findByIdAndUpdate(id, updatedMember, {
     new: true,
@@ -376,9 +385,10 @@ export const renewmembersPlan = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHandler("Member Id is missing in req"), 400);
   }
 
-  const { plan, planStartingDate, paidAmount } = req.body;
+  const { name, email, plan, planStartingDate, paidAmount, paymentMethod } =
+    req.body;
 
-  if (!plan || !planStartingDate || !paidAmount) {
+  if (!plan || !planStartingDate || !paidAmount || !paymentMethod) {
     return next(new ErrorHandler("Please fill all required fields", 400));
   }
 
@@ -415,6 +425,20 @@ export const renewmembersPlan = catchAsyncErrors(async (req, res, next) => {
       ? "partial"
       : "pending";
 
+  const revenue = await Revenue.create({
+    source: "Membership",
+    description: `New Member ${name} email ${email} Added this payment`,
+    amount: paidAmount,
+    memberId: id,
+    paymentMethod,
+    receivedBy: req.user._id,
+    
+    receiptImage: { public_id: "", secure_url: "" },
+  });
+  if (!revenue) {
+    return next(new ErrorHandler("revenue error", 400));
+  }
+
   const member = await Members.findByIdAndUpdate(
     id,
     {
@@ -450,6 +474,56 @@ export const renewmembersPlan = catchAsyncErrors(async (req, res, next) => {
   res.status(200).json({
     success: true,
     message: "Member's plan renewed successfully",
+    member,
+  });
+});
+
+export const payDueAmount = catchAsyncErrors(async (req, res, next) => {
+  const { id } = req.params;
+  const { name, email, paidAmount, paymentMethod } = req.body;
+
+  const member = await Members.findById(id);
+  if (!member) {
+    return next(new ErrorHandler("Member not found"), 400);
+  }
+
+  const revenue = addRevenue(
+    "Membership Due Amount paid",
+    `Member clears due payment ${name} email ${email} Added this payment`,
+    paidAmount,
+    id,
+    paymentMethod,
+    req.user.Id,
+    "invoiceNumber",
+    { public_id: "", secure_url: "" }
+  );
+
+  const finalPrice = member.currentPlan.plan.finalPrice;
+  console.log('finalPrice',finalPrice);
+  
+  const dueAmount = finalPrice - paidAmount;
+  console.log('dueAmount',dueAmount);
+  
+  const totalPaidAmt = member.paidAmount + paidAmount;
+  const paymentStatus =
+    totalPaidAmt >= finalPrice
+      ? "paid"
+      : paidAmount > 0
+      ? "partial"
+      : "pending";
+
+  const updatedMember = await Members.findByIdAndUpdate(
+    id,
+    { $set: { "currentPlan.paidAmount": totalPaidAmt, "currentPlan.dueAmount":dueAmount, "currentPlan.paymentStatus":paymentStatus } },
+    { new: true }
+  );
+  if (!updatedMember) {
+    return next(new ErrorHandler("Member not found"), 400);
+  }
+
+  res.status(200).json({
+    success: true,
+    message: "Member's due paid successfully",
     member,
   });
 });

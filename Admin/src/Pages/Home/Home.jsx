@@ -12,10 +12,12 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 const Home = () => {
-  const { getAllLiveMembers, getAllEmployee, getmembersStats } =
+  const { getAllLiveMembers, getAllEmployee, getmembersStats,totalExpenses,totalRevenew } =
     AppContextHook();
   const [liveMemberCount, setliveMemberCount] = useState(0);
   const [liveEmployeeCount, setliveEmployeeCount] = useState(0);
+  const [totalRevenewCount, settotalRevenewCount] = useState(0);
+  const [totalExpensesCount, settotalExpensesCount] = useState(0);
   const [memberStats, setmemberStats] = useState([]);
   const navigate = useNavigate();
 
@@ -46,6 +48,16 @@ const Home = () => {
       toast.error(res.response?.data?.message);
     }
   };
+   const totalRevenewHandler = async () => {
+    const res = await totalRevenew();
+    if (res?.data?.success) {
+      toast.success(res.data.message);
+      settotalRevenewCount(res.data.totalrevenewMoney);
+    } else {
+      toast.error(res.response?.data?.message);
+    }
+  };
+  
 
   
 
@@ -53,7 +65,10 @@ const Home = () => {
     getAllLiveMembersHandler();
     getAllEmployeeHandler();
     getmembersStatsHandler();
+    totalRevenewHandler();
   }, []);
+ 
+  
 
   return (
     <div className="home-page">
@@ -65,7 +80,7 @@ const Home = () => {
               <span>Finacial Statics</span>
             </p>
             <p>
-              <MdCurrencyRupee /> 450003
+              <MdCurrencyRupee /> {totalRevenewCount || 0}
             </p>
           </div>
           <div className="active-memebers" onClick={()=>{navigate('/members')}}>

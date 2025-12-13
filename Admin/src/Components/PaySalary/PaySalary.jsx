@@ -28,6 +28,7 @@ const PaySalary = () => {
     profileImage: null,
     date:"",
     paidAmount:"",
+    paymentMethod:"",
     
   });
 
@@ -40,16 +41,16 @@ const PaySalary = () => {
     }
    
   };
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    setData({ ...data, ["profileImage"]: file });
+  // const handleImageChange = (e) => {
+  //   const file = e.target.files[0];
+  //   setData({ ...data, ["profileImage"]: file });
 
-    const reader = new FileReader(file);
-    reader.readAsDataURL(file);
-    reader.onloadend = () => {
-      setPreview(reader.result);
-    };
-  };
+  //   const reader = new FileReader(file);
+  //   reader.readAsDataURL(file);
+  //   reader.onloadend = () => {
+  //     setPreview(reader.result);
+  //   };
+  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -149,14 +150,7 @@ const PaySalary = () => {
             ) : (
               <div className="preview-placeholder">Image Preview</div>
             )}
-            <label>Profile Image</label>
-            <input
-              type="file"
-              name="profileImage"
-              onChange={handleImageChange}
-              accept="image/*"
-              disabled={true}
-            />
+            
           </div>
 
           {/* <div className="form-group">
@@ -180,6 +174,26 @@ const PaySalary = () => {
               value={data.date}
               onChange={handleChange}
             />
+          </div>
+          <div className="form-row">
+            <label>Select Payment method</label>
+            <select
+              name="paymentMethod"
+              value={data.paymentMethod}
+              onChange={(e) => {
+                handleChange(e);
+                
+              }}
+              placeholder="select plan"
+              required
+            >
+              <option value="">Choose Payment Method</option>
+              {["Cash", "Online", "UPI", "Card", "Bank Transfer"]?.map((pm,i) => (
+                <option key={i} value={pm}>
+                  {pm}
+                </option>
+              ))}
+            </select>
           </div>
           <div className="form-group">
             <label>Paid Amount</label>
@@ -211,53 +225,7 @@ const PaySalary = () => {
             />
           </div>
 
-          <div className="form-group">
-            <label>Email</label>
-            <input
-              type="email"
-              name="email"
-              value={data.email}
-              onChange={handleChange}
-             disabled={true}
-            />
-          </div>
-
-          <div className="form-group">
-            <label>Phone</label>
-            <input
-              type="text"
-              name="phone"
-              value={data.phone}
-              onChange={handleChange}
-              disabled={true}
-            />
-          </div>
-
-          <div className="form-group">
-            <label>Address</label>
-            <input
-              type="text"
-              name="address"
-              value={data.address}
-              onChange={handleChange}
-              disabled={true}
-            />
-          </div>
-
-          <div className="form-group">
-            <label>Gender</label>
-            <select
-              name="gender"
-              value={data.gender}
-              onChange={handleChange}
-              disabled={true}
-            >
-              
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-              <option value="other">Other</option>
-            </select>
-          </div>
+          
 
           <div className="form-group">
             <label>Role</label>

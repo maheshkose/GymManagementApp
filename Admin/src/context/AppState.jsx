@@ -325,6 +325,23 @@ const AppState = ({ children }) => {
     }
   };
 
+  const paySalary = async (id,data) => {
+    setSpinner(true);
+
+    try {
+      const res = await axios.post(`${apiUrl}/employee/paySalary/${id}`, data, {
+        withCredentials: true,
+      });
+      console.log("paySalary res", res);
+      return res;
+    } catch (error) {
+      console.log("paySalary err", error);
+      return error;
+    } finally {
+      setSpinner(false);
+    }
+  };
+
   //members routes
   const createMember = async (data) => {
     setSpinner(true);
@@ -489,6 +506,22 @@ const getmembersStats = async () => {
       setSpinner(false);
     }
   };
+  const payDueAmount = async (id,data) => {
+    setSpinner(true);
+
+    try {
+      const res = await axios.post(`${apiUrl}/members/payDueAmount/${id}`, data, {
+        withCredentials: true,
+      });
+      console.log("payDueAmount res", res);
+      return res;
+    } catch (error) {
+      console.log("payDueAmount err", error);
+      return error;
+    } finally {
+      setSpinner(false);
+    }
+  };
 
 
 //Attendence routes
@@ -525,17 +558,93 @@ const getmembersStats = async () => {
     }
   };
   
+//finance Routes 
 
+const totalRevenew = async () => {
+    setSpinner(true);
 
-  
+    try {
+      const res = await axios.get(`${apiUrl}/finance/totalRevenew`, {
+        withCredentials: true,
+      });
+      console.log("totalRevenew res", res);
+      return res;
+    } catch (error) {
+      console.log("totalRevenew err", error);
+      return error;
+    } finally {
+      setSpinner(false);
+    }
+  };
+  const totalExpenses = async () => {
+    setSpinner(true);
 
+    try {
+      const res = await axios.get(`${apiUrl}/finance/totalExpenses`, {
+        withCredentials: true,
+      });
+      console.log("totalExpenses res", res);
+      return res;
+    } catch (error) {
+      console.log("totalExpenses err", error);
+      return error;
+    } finally {
+      setSpinner(false);
+    }
+  };
 
+  const getRevenueArray = async () => {
+    setSpinner(true);
 
+    try {
+      const res = await axios.get(`${apiUrl}/finance/getRevenueArray`, {
+        withCredentials: true,
+      });
+      console.log("getRevenueArray res", res);
+      return res;
+    } catch (error) {
+      console.log("getRevenueArray err", error);
+      return error;
+    } finally {
+      setSpinner(false);
+    }
+  };
+  const getExpensesArray= async () => {
+    setSpinner(true);
 
+    try {
+      const res = await axios.get(`${apiUrl}/finance/getExpensesArray`, {
+        withCredentials: true,
+      });
+      console.log("getExpensesArray res", res);
+      return res;
+    } catch (error) {
+      console.log("getExpensesArray err", error);
+      return error;
+    } finally {
+      setSpinner(false);
+    }
+  };
+   const getRevenueVsExpense= async () => {
+    setSpinner(true);
+
+    try {
+      const res = await axios.get(`${apiUrl}/finance/getRevenueVsExpense`, {
+        withCredentials: true,
+      });
+      console.log("getRevenueVsExpense res", res);
+      return res;
+    } catch (error) {
+      console.log("getRevenueVsExpense err", error);
+      return error;
+    } finally {
+      setSpinner(false);
+    }
+  };
 
 
   return (
-    <AppContext.Provider value={{ spinner,register,login,logout,isLoggedIn,updatePlan,deletePlan,addPlan,getAllPlans,getPlanById,addEmployee,getAllEmployee,getEmployeeById,updateEmployeeById,deleteEmployeeById,addEmployeeAttendenceById,deleteEmployeeAttendenceById, createMember,getAllMembers,getAllExpiredMembers,getAllLiveMembers,getMemberById,updateMemberById,deleteMemberById,addAttendence,deleteAttendence,getmembersStats, getOtp, verifyOtp,renewMemberPlan }}>{children}</AppContext.Provider>
+    <AppContext.Provider value={{ spinner,register,login,logout,isLoggedIn,updatePlan,deletePlan,addPlan,getAllPlans,getPlanById,addEmployee,getAllEmployee,getEmployeeById,updateEmployeeById,deleteEmployeeById,addEmployeeAttendenceById,deleteEmployeeAttendenceById,paySalary, createMember,getAllMembers,getAllExpiredMembers,getAllLiveMembers,getMemberById,updateMemberById,deleteMemberById,addAttendence,deleteAttendence,getmembersStats, getOtp, verifyOtp,renewMemberPlan,payDueAmount,totalExpenses,totalRevenew,getRevenueArray,getExpensesArray,getRevenueVsExpense }}>{children}</AppContext.Provider>
   );
 };
 
