@@ -17,7 +17,7 @@ const App = () => {
       <div className="app">
         <Router>
           <Spinner />
-          {/* {isLoggedIn ? <></> : <Login />} */}
+          {isLoggedIn ? <></> : <Login />}
           <div className="sidebar-el">
             <SideBar />
           </div>
