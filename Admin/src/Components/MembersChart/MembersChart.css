@@ -3,10 +3,11 @@
     flex-direction: column;
     gap: 20px;
     justify-items: start;
+    padding: 0 30px 0 0;
 }
 
   
 
- .chooseMode select{
+.chooseMode select{
     color: black;
- }
+}

@@ -625,6 +625,22 @@ const totalRevenew = async () => {
       setSpinner(false);
     }
   };
+   const addExpense= async (data) => {
+    setSpinner(true);
+
+    try {
+      const res = await axios.post(`${apiUrl}/finance/addExpense`,data, {
+        withCredentials: true,
+      });
+      console.log("addExpense", res);
+      return res;
+    } catch (error) {
+      console.log("addExpense err", error);
+      return error;
+    } finally {
+      setSpinner(false);
+    }
+  };
    const getRevenueVsExpense= async () => {
     setSpinner(true);
 
@@ -644,7 +660,7 @@ const totalRevenew = async () => {
 
 
   return (
-    <AppContext.Provider value={{ spinner,register,login,logout,isLoggedIn,updatePlan,deletePlan,addPlan,getAllPlans,getPlanById,addEmployee,getAllEmployee,getEmployeeById,updateEmployeeById,deleteEmployeeById,addEmployeeAttendenceById,deleteEmployeeAttendenceById,paySalary, createMember,getAllMembers,getAllExpiredMembers,getAllLiveMembers,getMemberById,updateMemberById,deleteMemberById,addAttendence,deleteAttendence,getmembersStats, getOtp, verifyOtp,renewMemberPlan,payDueAmount,totalExpenses,totalRevenew,getRevenueArray,getExpensesArray,getRevenueVsExpense }}>{children}</AppContext.Provider>
+    <AppContext.Provider value={{ spinner,register,login,logout,isLoggedIn,updatePlan,deletePlan,addPlan,getAllPlans,getPlanById,addEmployee,getAllEmployee,getEmployeeById,updateEmployeeById,deleteEmployeeById,addEmployeeAttendenceById,deleteEmployeeAttendenceById,paySalary, createMember,getAllMembers,getAllExpiredMembers,getAllLiveMembers,getMemberById,updateMemberById,deleteMemberById,addAttendence,deleteAttendence,getmembersStats, getOtp, verifyOtp,renewMemberPlan,payDueAmount,totalExpenses,totalRevenew,getRevenueArray,getExpensesArray,getRevenueVsExpense,addExpense }}>{children}</AppContext.Provider>
   );
 };
 
