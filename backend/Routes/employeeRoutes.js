@@ -8,6 +8,8 @@ import {
   addAttendenceOfEmployee,
   deleteAttendenceOfEmployee,
   paySalary,
+  checkIn,
+  checkOut,
 } from "../Controllers/employeeCon.js";
 
 import { isAdminAuthenticated } from "../Middlewares/authentication.js";
@@ -33,6 +35,8 @@ employeeRouter.delete("/deleteEmployeeById/:id", isAdminAuthenticated, deleteEmp
 
 //Add attendence of employee
 employeeRouter.get('/addAttendenceOfEmployee/:id',isAdminAuthenticated, addAttendenceOfEmployee);
+employeeRouter.get('/checkIn/:id',isAdminAuthenticated, checkIn);
+employeeRouter.get('/checkOut/:id',isAdminAuthenticated, checkOut);
 //delete attendence of employee
 employeeRouter.post('/deleteAttendenceOfEmployee',isAdminAuthenticated, deleteAttendenceOfEmployee);
 

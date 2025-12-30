@@ -29,6 +29,19 @@ const Finance = () => {
     { month: "Apr", revenue: 13000, expenses: 6000 },
     { month: "May", revenue: 17000, expenses: 9000 },
     { month: "Jun", revenue: 18000, expenses: 11000 },
+    { month: "Jan", revenue: 12000, expenses: 6000 },
+    { month: "Feb", revenue: 10000, expenses: 8000 },
+    { month: "Mar", revenue: 15000, expenses: 7000 },
+    { month: "Apr", revenue: 13000, expenses: 6000 },
+    { month: "May", revenue: 17000, expenses: 9000 },
+    { month: "Jun", revenue: 18000, expenses: 11000 },
+    { month: "Jan", revenue: 12000, expenses: 6000 },
+    { month: "Feb", revenue: 10000, expenses: 8000 },
+    { month: "Mar", revenue: 15000, expenses: 7000 },
+    { month: "Apr", revenue: 13000, expenses: 6000 },
+    { month: "May", revenue: 17000, expenses: 9000 },
+    { month: "Jun", revenue: 18000, expenses: 11000 },
+    
   ];
 
   const [financeData, setFinanceData] = useState({
@@ -129,7 +142,7 @@ const Finance = () => {
         <h2>Monthly Revenue vs Expenses</h2>
         <div className="chart-box">
           <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={monthly}>
+            <BarChart data={monthlyData}>
               <XAxis dataKey="month" />
               <YAxis />
               <Tooltip />

@@ -2,12 +2,15 @@ import React, { useEffect, useState } from "react";
 import './MembersChart.css';
 import {
   LineChart,
+  AreaChart,
   Line,
+  Area,
   XAxis,
   YAxis,
   Tooltip,
   CartesianGrid,
   ResponsiveContainer,
+  
 } from "recharts";
 
 const data = [
@@ -109,18 +112,20 @@ const MemberLineChart = ({ memberStats }) => {
       </form>
     <ResponsiveContainer width="100%" height={300} >
       
-      <LineChart data={membersChart}>
+      <AreaChart data={membersChart} margin={{top:10,left:0,right:30,bottom:10}} style={{}}>
         {/* <CartesianGrid strokeDasharray="3 3" /> */}
         <XAxis dataKey="date" />
         <YAxis />
         <Tooltip />
-        <Line
+        {/* <Line
           type="monotone"
           dataKey="membersCount"
           stroke="#8884d8"
+           
           strokeWidth={2}
-        />
-      </LineChart>
+        /> */}
+         <Area type="monotone" dataKey="membersCount" stroke="#82ca9d" fill="#82ca9d" />
+      </AreaChart>
     </ResponsiveContainer>
     </div>
   );

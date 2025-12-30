@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import MemberLineChart from "../../Components/MembersChart/MembersChart";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { LuDumbbell } from "react-icons/lu";
 
 const Home = () => {
   const { getAllLiveMembers, getAllEmployee, getmembersStats,totalExpenses,totalRevenew,isLoggedIn } =
@@ -19,6 +20,13 @@ const Home = () => {
   const [totalRevenewCount, settotalRevenewCount] = useState(0);
   const [totalExpensesCount, settotalExpensesCount] = useState(0);
   const [memberStats, setmemberStats] = useState([]);
+  const [classesData, setclassesData] = useState([
+    {title:"Advanced swimming", time: "6:00 AM", name: "Yoga", trainer: "Alice" },
+    {title:"Advanced swimming", time: "7:30 AM", name: "Cardio Blast", trainer: "Bob" },
+    {title:"Advanced swimming", time: "9:00 AM", name: "Strength Training", trainer: "Charlie" },
+    {title:"Advanced swimming", time: "5:00 PM", name: "Zumba", trainer: "Diana" },
+    {title:"Advanced swimming", time: "6:30 PM", name: "Advanced swimming", trainer: "Ethan" },
+  ])
   const navigate = useNavigate();
 
   const getAllLiveMembersHandler = async () => {
@@ -74,8 +82,8 @@ const Home = () => {
     <div className="home-page">
       <div className="statics">
         <div className="number-static">
-          <div className="finacial-statics">
-            <p onClick={()=>{navigate('/finance')}}>
+          <div className="finacial-statics" onClick={()=>{navigate('/finance')}}>
+            <p >
               <HiDocumentCurrencyRupee />
               <span>Finacial Statics</span>
             </p>
@@ -105,10 +113,33 @@ const Home = () => {
             <MemberLineChart memberStats={memberStats}/>
           </div>
         </div>
-        <div className="other"></div>
+        
       </div>
+      <div className="classes">
+          <div className="classes-container">
+            <div className="cl-header">
+              <h2>Upcoming Classes Today</h2>
+             
+              </div>
+              
+              <div className="cl-list">
+                {classesData.map((cls, index) => (
+                <div key={index} className="class-card">
+                  <h4 className="class-name"><LuDumbbell />  {cls.name}</h4>
+                  <p className="class-time">Time:{cls.time}</p>
+                  <p className="class-trainer">Trainer: {cls.trainer}</p>
+                  <p className="class-capacity">Capacity:{cls.name}</p>
+                </div>
+              ))}
+              </div>
+            
+          </div>
+        </div>
       <div className="event">
-        <div className="attendece"></div>
+        
+        <div className="attendece">
+          //Employee in workplace now
+        </div>
       </div>
     </div>
   );

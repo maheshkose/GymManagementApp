@@ -324,6 +324,38 @@ const AppState = ({ children }) => {
       setSpinner(false);
     }
   };
+  const checkInEmployee = async (id) => {
+    setSpinner(true);
+
+    try {
+      const res = await axios.get(`${apiUrl}/employee/checkIn/${id}`, {
+        withCredentials: true,
+      });
+      console.log("checkIn employee res", res);
+      return res;
+    } catch (error) {
+      console.log("checkIn employee err", error);
+      return error;
+    } finally {
+      setSpinner(false);
+    }
+  };
+  const checkOutEmployee = async (id) => {
+    setSpinner(true);
+
+    try {
+      const res = await axios.get(`${apiUrl}/employee/checkOut/${id}`, {
+        withCredentials: true,
+      });
+      console.log("checkOut employee res", res);
+      return res;
+    } catch (error) {
+      console.log("checkOut employee err", error);
+      return error;
+    } finally {
+      setSpinner(false);
+    }
+  };
 
   const paySalary = async (id,data) => {
     setSpinner(true);
@@ -452,6 +484,39 @@ const AppState = ({ children }) => {
       return res;
     } catch (error) {
       console.log("deleteMemberById err", error);
+      return error;
+    } finally {
+      setSpinner(false);
+    }
+  };
+
+    const checkInMember = async (id) => {
+    setSpinner(true);
+
+    try {
+      const res = await axios.get(`${apiUrl}/members/checkIn/${id}`, {
+        withCredentials: true,
+      });
+      console.log("checkIn member res", res);
+      return res;
+    } catch (error) {
+      console.log("checkIn member err", error);
+      return error;
+    } finally {
+      setSpinner(false);
+    }
+  };
+  const checkOutMember = async (id) => {
+    setSpinner(true);
+
+    try {
+      const res = await axios.get(`${apiUrl}/members/checkOut/${id}`, {
+        withCredentials: true,
+      });
+      console.log("checkOut member res", res);
+      return res;
+    } catch (error) {
+      console.log("checkOut member err", error);
       return error;
     } finally {
       setSpinner(false);
@@ -659,8 +724,157 @@ const totalRevenew = async () => {
   };
 
 
+  //attendence routes
+   const getAttendenceOfTodaymembers = async (data) => {
+    setSpinner(true);
+
+    try {
+      const res = await axios.get(`${apiUrl}/attendance/getAttendenceOfTodaymembers`, {
+        withCredentials: true,
+      });
+      console.log("getAttendenceOfTodaymembers res", res);
+      return res;
+    } catch (error) {
+      console.log("getAttendenceOfTodaymembers err", error);
+      return error;
+    } finally {
+      setSpinner(false);
+    }
+  };
+   const getAllAttendenceTrendOfmembers = async (data) => {
+    setSpinner(true);
+
+    try {
+      const res = await axios.get(`${apiUrl}/attendance/getAllAttendenceTrendOfmembers`, {
+        withCredentials: true,
+      });
+      console.log("getAllAttendenceTrendOfmembers res", res);
+      return res;
+    } catch (error) {
+      console.log("getAllAttendenceTrendOfmembers err", error);
+      return error;
+    } finally {
+      setSpinner(false);
+    }
+  };
+
+     const getCurrentlyInGymmembers = async (data) => {
+    setSpinner(true);
+
+    try {
+      const res = await axios.get(`${apiUrl}/attendance/getCurrentlyInGymmembers`, {
+        withCredentials: true,
+      });
+      console.log("getCurrentlyInGymmembers res", res);
+      return res;
+    } catch (error) {
+      console.log("getCurrentlyInGymmembers err", error);
+      return error;
+    } finally {
+      setSpinner(false);
+    }
+  };
+       const getAttendenceTrendPerHourOfmembers = async (data) => {
+    setSpinner(true);
+
+    try {
+      const res = await axios.get(`${apiUrl}/attendance/getAttendenceTrendPerHourOfmembers`, {
+        withCredentials: true,
+      });
+      console.log("getAttendenceTrendPerHourOfmembers res", res);
+      return res;
+    } catch (error) {
+      console.log("getAttendenceTrendPerHourOfmembers err", error);
+      return error;
+    } finally {
+      setSpinner(false);
+    }
+  };
+        const topattendingmembers = async (data) => {
+    setSpinner(true);
+
+    try {
+      const res = await axios.get(`${apiUrl}/attendance/topattendingmembers`, {
+        withCredentials: true,
+      });
+      console.log("topattendingmembers res", res);
+      return res;
+    } catch (error) {
+      console.log("topattendingmembers err", error);
+      return error;
+    } finally {
+      setSpinner(false);
+    }
+  };
+  //attendece routes for employees can be added here
+    const getAttendenceOfTodayEmployee = async (data) => {
+    setSpinner(true);
+
+    try {
+      const res = await axios.get(`${apiUrl}/attendance/getAttendenceOfTodayEmployee`, {
+        withCredentials: true,
+      });
+      console.log("getAttendenceOfTodayEmployee res", res);
+      return res;
+    } catch (error) {
+      console.log("getAttendenceOfTodayEmployee err", error);
+      return error;
+    } finally {
+      setSpinner(false);
+    }
+  };
+   const getAllAttendenceTrendOfEmployee = async (data) => {
+    setSpinner(true);
+
+    try {
+      const res = await axios.get(`${apiUrl}/attendance/getAllAttendenceTrendOfEmployee`, {
+        withCredentials: true,
+      });
+      console.log("getAllAttendenceTrendOfEmployee res", res);
+      return res;
+    } catch (error) {
+      console.log("getAllAttendenceTrendOfEmployee err", error);
+      return error;
+    } finally {
+      setSpinner(false);
+    }
+  };
+
+     const getCurrentlyInGymEmployee = async (data) => {
+    setSpinner(true);
+
+    try {
+      const res = await axios.get(`${apiUrl}/attendance/getCurrentlyInGymEmployee`, {
+        withCredentials: true,
+      });
+      console.log("getCurrentlyInGymEmployee res", res);
+      return res;
+    } catch (error) {
+      console.log("getCurrentlyInGymEmployee err", error);
+      return error;
+    } finally {
+      setSpinner(false);
+    }
+  };
+       const topattendingEmployee = async (data) => {
+    setSpinner(true);
+
+    try {
+      const res = await axios.get(`${apiUrl}/attendance/topattendingEmployee`, {
+        withCredentials: true,
+      });
+      console.log("topattendingemployees res", res);
+      return res;
+    } catch (error) {
+      console.log("topattendingemployees err", error);
+      return error;
+    } finally {
+      setSpinner(false);
+    }
+  };
+
   return (
-    <AppContext.Provider value={{ spinner,register,login,logout,isLoggedIn,updatePlan,deletePlan,addPlan,getAllPlans,getPlanById,addEmployee,getAllEmployee,getEmployeeById,updateEmployeeById,deleteEmployeeById,addEmployeeAttendenceById,deleteEmployeeAttendenceById,paySalary, createMember,getAllMembers,getAllExpiredMembers,getAllLiveMembers,getMemberById,updateMemberById,deleteMemberById,addAttendence,deleteAttendence,getmembersStats, getOtp, verifyOtp,renewMemberPlan,payDueAmount,totalExpenses,totalRevenew,getRevenueArray,getExpensesArray,getRevenueVsExpense,addExpense }}>{children}</AppContext.Provider>
+    <AppContext.Provider value={{ spinner,register,login,logout,isLoggedIn,updatePlan,deletePlan,addPlan,getAllPlans,getPlanById,addEmployee,getAllEmployee,getEmployeeById,updateEmployeeById,deleteEmployeeById,addEmployeeAttendenceById,deleteEmployeeAttendenceById,checkInEmployee,checkOutEmployee,paySalary, createMember,getAllMembers,getAllExpiredMembers,getAllLiveMembers,getMemberById,updateMemberById,deleteMemberById,addAttendence,deleteAttendence,checkInMember,checkOutMember,getmembersStats, getOtp, verifyOtp,renewMemberPlan,payDueAmount,totalExpenses,totalRevenew,getRevenueArray,getExpensesArray,getRevenueVsExpense,addExpense,getAllAttendenceTrendOfmembers,getAttendenceOfTodaymembers,getCurrentlyInGymmembers,getAttendenceTrendPerHourOfmembers, topattendingmembers,getAllAttendenceTrendOfEmployee,getAttendenceOfTodayEmployee,getCurrentlyInGymEmployee,topattendingEmployee }}>{children}</AppContext.Provider>
   );
 };
 

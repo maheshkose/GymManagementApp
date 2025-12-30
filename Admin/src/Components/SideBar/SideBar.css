@@ -30,7 +30,11 @@
 .sidebar nav {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
   gap: 10px;
+  width: 100%;
+
 }
 
 /* NavLink base styling */
@@ -49,7 +53,9 @@
 /* Icon + text container */
 .sidebar nav p {
   display: flex;
+  flex-direction: row;
   align-items: center;
+  justify-content: center;
   gap: 12px;
 }
 
@@ -65,9 +71,13 @@
   font-weight: 700;
 }
 
+.sidebar nav a p svg {
+  font-size: 1.5rem;
+}
 /* Highlight icon when active */
 .sidebar nav a.active p svg {
   color: #000;
+  
 }
 
 /* Responsive */
@@ -103,6 +113,7 @@
     flex-direction: row;
     overflow-x: scroll;
     scrollbar-width: none;
+    justify-content: space-around;
   }
   .sidebar .logo{
     display: none;

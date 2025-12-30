@@ -21,6 +21,9 @@ import AddExpense from '../Pages/Finance/AddExpense/AddExpense';
 import ExpenseList from '../Pages/Finance/ExpenseList/ExpenseList';
 import RevenueList from '../Pages/Finance/RevenueList/RevenueList';
 import PayDue from '../Components/PayDue/PayDue';
+
+import Attendance from '../Pages/Attendence/Attendence';
+import AttendenceEmployees from '../Pages/AttendenceEmployees/Attendence';
 const AppRoutes = () => {
   return (
     
@@ -28,6 +31,8 @@ const AppRoutes = () => {
         <Route path='/' element={<Home />}/>
         <Route path='/profile' element={<Profile />}/>
         <Route path='/memberships' element={<Memberships />}/>
+        <Route path='/attendance' element={<Attendance />}/>
+        <Route path='/AttendenceEmployees' element={<AttendenceEmployees />}/>
         <Route path='/employee' element={<Employee />}/>
         <Route path='/finance' element={<Finance />}/>
         <Route path='/addEmployee' element={<AddEmployee />}/>

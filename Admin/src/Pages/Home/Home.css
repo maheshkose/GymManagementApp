@@ -1,7 +1,8 @@
 /* MAIN LAYOUT */
 .home-page {
   display: grid;
-  grid-template-columns: 3fr 1fr;
+  grid-template-columns: 3fr;
+  /* justify-content: center; */
   gap: 2rem;
   padding: 2rem;
   width: 100%;
@@ -13,7 +14,7 @@
 .statics {
   display: grid;
   grid-template-rows: auto auto 1fr;
-  
+  width: 90%;
   gap: 2rem;
 }
 
@@ -56,7 +57,7 @@
 /* CHART AREA */
 .members-chart {
   background: #ffffff;
-  padding: 2rem;
+  padding: .5rem;
   border-radius: 1rem;
   box-shadow: 0 0.2rem 0.8rem rgba(0,0,0,0.08);
 }
@@ -75,11 +76,85 @@
 }
 
 /* OTHER SECTION */
-.other {
+.classes {
   background: #ffffff;
-  height: 20vh;
+  height: auto;
   border-radius: 1rem;
   box-shadow: 0 0.2rem 0.8rem rgba(0,0,0,0.08);
+  width: 90%;
+}
+.classes-container {
+  padding: 1rem;
+}
+.cl-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  text-wrap: nowrap;
+  font-size: 1rem;
+}
+.classes-container h2 {
+  font-size: 1rem;
+  
+  font-weight: 700;
+}
+.classes-container h3{
+  font-size: 1rem;
+ width: 100%;
+  font-weight: 600;
+}
+.cl-list {
+  list-style: none;
+  padding: 1rem;
+  margin: 0;
+  display: flex;
+  justify-content: space-around;
+  gap: 1rem;
+  width: 100%;
+  /* max-width: 30vw; */
+  align-items: center;
+  overflow-x:scroll;
+  scrollbar-width: thin;
+}
+.cl-list .cl-li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #eee;
+}
+.class-card{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.3rem;
+  font-size: 0.9rem;
+  border: 1px solid #ddd;
+  border-radius: 15px;
+  padding: 1rem;
+}
+.class-card p{
+  padding: .5rem;
+  font-weight: 400;
+  text-wrap: nowrap;
+}
+.class-card h4{
+  font-weight: 600;
+  padding: .5rem;
+  text-wrap: nowrap;
+  align-items: center;
+  font-size: 1.3rem;
+  color: rgb(128, 195, 128);
+}
+
+.class-card h4 svg{
+  margin-right: 0.5rem;
+  color: rgb(87, 171, 87);
+  font-size: 1.3rem;
+}
+.class-card:hover{
+  /* box-shadow: 0 0.4rem 1.2rem rgba(0,0,0,0.12); */
+  border:rgb(87, 171, 87) 1px solid;
+  transform: scale(1.05);
+  transition: all 0.3s ease;
 }
 
 /* EVENT RIGHT SIDE */
@@ -88,6 +163,7 @@
   border-radius: 1rem;
   padding: 2rem;
   box-shadow: 0 0.2rem 0.8rem rgba(0,0,0,0.08);
+  width: 90%;
 }
 
 .attendece {
@@ -101,17 +177,25 @@
 @media (max-width: 60rem) {
   .home-page {
     grid-template-columns: 1fr;
+    overflow-x: hidden;
+    padding: auto;
+    
   }
   .event {
     height: auto;
+  }
+  .cl-list{
+    max-width: 80vw;
+    font-size: smaller;
   }
 }
 
 /* RESPONSIVE 480px */
 @media (max-width: 30rem) {
   .home-page {
-    padding: 1.2rem;
+    padding: auto;
     gap: 1.2rem;
+    overflow-x: hidden;
   }
 
   .number-static {

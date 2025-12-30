@@ -1,0 +1,288 @@
+/* ================= Root ================= */
+.attendance-page {
+  padding: 20px;
+  background: #f7f8fc;
+  min-height: 100vh;
+  font-family: "Inter", sans-serif;
+  animation: fadeIn 0.6s ease-in;
+}
+
+/* ================= Header ================= */
+.att-track {
+  margin-bottom: 20px;
+}
+
+.att-track h2 {
+  font-size: 26px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.att-track p {
+  color: #6b7280;
+}
+
+/* ================= Stats Cards ================= */
+.att-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.att-stats > div {
+  background: #ffffff;
+  padding: 18px;
+  border-radius: 14px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  cursor: pointer;
+}
+
+.att-stats > div:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+.att-stats h3 {
+  font-size: 15px;
+  color: #374151;
+}
+
+.att-stats p:first-of-type {
+  font-size: 28px;
+  font-weight: 600;
+  margin: 8px 0;
+  color: #4f46e5;
+}
+
+.att-stats p:last-of-type {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+/* ================= Today Checkins Table ================= */
+.checkins-and-top-performers {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 30px;
+}
+.today-chekins-list-container {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+}
+
+.t-c-lc-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.t-c-lc-header input {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  outline: none;
+}
+.mem-atte-search{
+  color: #333;
+}
+
+.t-c-lc-header input:focus {
+  border-color: #4f46e5;
+}
+.t-c-lc-body {
+  max-height: 500px;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+/* ================= Table ================= */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  
+}
+
+thead {
+  background: #f3f4f6;
+}
+
+th,
+td {
+  padding: 12px;
+  text-align: left;
+  font-size: 14px;
+}
+
+th {
+  color: #374151;
+  font-weight: 600;
+}
+
+tbody tr {
+  transition: background 0.2s ease;
+}
+
+tbody tr:hover {
+  background: #f9fafb;
+}
+
+.status.active {
+  background: #dcfce7;
+  color: #166534;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+}
+.checkin-t-body {
+  height: 400px;
+  overflow-y: hidden;
+}
+
+/* ================= Top Performers ================= */
+.topperformers {
+  margin-top: 30px;
+  background-color: #ffffff;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+  padding: 20px;
+  border-radius: 14px;
+}
+
+/* .top-prf-con {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px;
+  margin-top: 14px;
+} */
+.top-prf-con {
+  display: flex;
+  flex-direction: column;
+
+  gap: 14px;
+  margin-top: 14px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+}
+
+.top-prf-con .att-card {
+  background: #f9fafb;
+  padding: 14px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+  transition: transform 0.25s ease, background 0.25s ease;
+}
+
+.top-prf-con > div:hover {
+  transform: scale(1.04);
+  background: #eef2ff;
+}
+
+.rank {
+  font-size: 22px;
+  font-weight: 700;
+  color: #4f46e5;
+
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  border-radius: 50%;
+  text-align: center;
+}
+.gold {
+  background-color: gold;
+  color: white;
+}
+.silver {
+  background-color: silver;
+  color: white;
+}
+.bronze {
+  background-color: #cd7f32;
+  color: white;
+}
+
+.name {
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.att-count {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+/* ================= Attendance Trend ================= */
+.attendence-trend {
+  margin-top: 30px;
+  background: #ffffff;
+  padding: 16px;
+  border-radius: 14px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+}
+
+.at-Tr-graph {
+  background: #ffffff;
+  padding: 16px;
+  border-radius: 14px;
+ 
+}
+
+/* ================= Animations ================= */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ================= Responsive ================= */
+
+/* Tablets */
+@media (max-width: 1024px) {
+  .att-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  .att-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .t-c-lc-header {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  table {
+    font-size: 12px;
+  }
+
+  th,
+  td {
+    padding: 8px;
+  }
+}
+@media (max-width: 480px) {
+  .checkins-and-top-performers {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}

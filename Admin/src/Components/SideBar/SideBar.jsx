@@ -8,6 +8,9 @@ import { MdOutlineClass } from "react-icons/md";
 import { FaUsers } from "react-icons/fa";
 import { GrServicePlay } from "react-icons/gr";
 import { LuLogOut } from "react-icons/lu";
+import { CiSquareCheck } from "react-icons/ci";
+import { CiBank } from "react-icons/ci";
+
 
 const SideBar = () => {
   return (
@@ -20,6 +23,12 @@ const SideBar = () => {
             <p>
                 <RxDashboard/> 
                 <span>Dashboard</span>
+            </p>
+        </NavLink>
+        <NavLink to={'/finance'}>
+            <p>
+                <CiBank /> 
+                <span>Finance</span>
             </p>
         </NavLink>
          <NavLink to={'/Employee'}>
@@ -38,6 +47,18 @@ const SideBar = () => {
             <p>
                 <FaUsers/> 
                 <span>Members</span>
+            </p>
+        </NavLink>
+        <NavLink to={'/attendance'}>
+            <p>
+                <CiSquareCheck/> 
+                <span>Attendance</span>
+            </p>
+        </NavLink>
+        <NavLink to={'/AttendenceEmployees'}>
+            <p>
+                <CiSquareCheck/> 
+                <span>Employee Attendance</span>
             </p>
         </NavLink>
         

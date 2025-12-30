@@ -43,7 +43,7 @@ export const totalExpenses = catchAsyncErrors(async (req, res, next) => {
 });
 
 export const getRevenueArray = catchAsyncErrors(async (req, res, next) => {
-  const revenue = await Revenue.find();
+  const revenue = await Revenue.find().sort({createdAt:-1});
 
   if (!revenue) {
     return next(new ErrorHandler("revenew array not found", 400));
@@ -56,7 +56,7 @@ export const getRevenueArray = catchAsyncErrors(async (req, res, next) => {
   });
 });
 export const getExpensesArray = catchAsyncErrors(async (req, res, next) => {
-  const expense = await Expense.find();
+  const expense = await Expense.find().sort({createdAt:-1});
 
   if (!expense) {
     return next(new ErrorHandler("expense array not found", 400));

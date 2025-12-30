@@ -12,6 +12,7 @@ import { CiSearch, CiSquareCheck } from "react-icons/ci";
 import { MdOutlineAutorenew } from "react-icons/md";
 import { RiDeleteBin2Line } from "react-icons/ri";
 import { TbPointFilled } from "react-icons/tb";
+import { CiFilter } from "react-icons/ci";
 
 const Employee = () => {
   const {
@@ -22,6 +23,8 @@ const Employee = () => {
     deleteEmployeeById,
     addEmployeeAttendenceById,
     deleteEmployeeAttendenceById,
+    checkInEmployee,
+    checkOutEmployee,
   } = AppContextHook();
   const [employees, setemployees] = useState([]);
   const [allEmployees, setallEmployees] = useState([]);
@@ -39,22 +42,40 @@ const Employee = () => {
 
   const [searchQuery, setsearchQuery] = useState("");
   const [searchResultArray, setsearchResultArray] = useState([]);
-  const addAttendenceHandler = async (id) => {
-    const res = await addEmployeeAttendenceById(id);
+  // const addAttendenceHandler = async (id) => {
+  //   const res = await addEmployeeAttendenceById(id);
+  //   if (res?.data?.success) {
+  //     toast.success(res.data.message);
+  //   } else {
+  //     toast.error(res.response?.data?.message);
+  //   }
+  // };
+  // const deleteEmployeeAttendenceByIdHandler = async (id, date) => {
+  //   const res = await deleteEmployeeAttendenceById({ id, date });
+  //   if (res?.data?.success) {
+  //     toast.success(res.data.message);
+  //   } else {
+  //     toast.error(res.response?.data?.message);
+  //   }
+  // };
+
+  const checkInEmployeeHandler = async (id) => {
+    const res = await checkInEmployee(id);
     if (res?.data?.success) {
       toast.success(res.data.message);
     } else {
       toast.error(res.response?.data?.message);
     }
   };
-  const deleteEmployeeAttendenceByIdHandler = async (id, date) => {
-    const res = await deleteEmployeeAttendenceById({ id, date });
+  const checkOutEmployeeHandler = async (id) => {
+    const res = await checkOutEmployee(id);
     if (res?.data?.success) {
       toast.success(res.data.message);
     } else {
       toast.error(res.response?.data?.message);
     }
   };
+
   useEffect(() => {
     getAllEmployeeHandler();
   }, []);
@@ -74,6 +95,22 @@ const Employee = () => {
     );
     // console.log('searchResult',searchResult);
     // setsearchResultArray(searchResult);
+    setemployees(searchResult);
+  };
+
+  const OnFilterChangeHandler = (e) => {
+    const value = e.target.value.toLowerCase().trim();
+
+    
+    
+    if (value === "all") {
+     
+      setemployees(allEmployees);
+      return;
+    }
+    const searchResult = allEmployees?.filter((empl) =>
+      empl.role.toLowerCase().includes(value)
+    );
     setemployees(searchResult);
   };
 
@@ -111,6 +148,28 @@ const Employee = () => {
             )}
           </div>
         </div>
+        <div className="filter">
+          <label htmlFor="filter">
+            <CiFilter />
+            <span>Filter</span>
+          </label>
+
+          <select name="filter" id="filter" onChange={OnFilterChangeHandler}>
+            {[
+              "all",
+              "trainer",
+              "receptionist",
+              "accountant",
+              "cleaner",
+              "manager",
+            ].map((f, i) => (
+              <option key={i} value={f}>
+                {f}
+              </option>
+            ))}
+          </select>
+        </div>
+
         <button
           onClick={() => {
             navigate("/addEmployee");
@@ -194,10 +253,17 @@ const Employee = () => {
                   </li>
                   <li
                     onClick={() => {
-                      addAttendenceHandler(employee?._id);
+                      checkInEmployeeHandler(employee?._id);
                     }}
                   >
                     <CiSquareCheck /> <span>CheckIn</span>
+                  </li>
+                  <li
+                    onClick={() => {
+                      checkOutEmployeeHandler(employee?._id);
+                    }}
+                  >
+                    <CiSquareCheck /> <span>CheckOut</span>
                   </li>
                   <li
                     onClick={() => {

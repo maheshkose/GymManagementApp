@@ -7,6 +7,7 @@ import Plan from "../Models/planModels.js";
 
 import { addRevenue } from "./finaceCon.js";
 import Revenue from "../Models/revenueModel.js";
+import Attendance from "../Models/attendenceModel.js";
 
 export const addMember = catchAsyncErrors(async (req, res, next) => {
   console.log("going to add");
@@ -527,3 +528,114 @@ export const payDueAmount = catchAsyncErrors(async (req, res, next) => {
     member,
   });
 });
+
+export const checkIn = catchAsyncErrors(
+  async (req, res, next) => {
+    const { id } = req.params;
+
+    const today = new Date();
+    const startOfDay = new Date(today.setHours(0, 0, 0, 0));
+
+    // Find member
+    const member = await Members.findById(id).populate("attendence");
+
+    if (!member) {
+      return next(new ErrorHandler("member not found", 404));
+    }
+
+    // Check if attendance exists for today
+    const alreadyPresent = member.attendence.some((att) => {
+      const attDate = new Date(att.date);
+      return attDate >= startOfDay; // means already added for today
+    });
+
+    if (alreadyPresent) {
+      return next(new ErrorHandler("Attendance already marked for today", 400));
+    }
+
+
+    // Add attendance
+    const todayAttendence = {
+      member: id,
+      checkInTime: new Date(),
+      checkOutTime: null,
+      status: "present",
+      date: new Date(),
+    };
+    const todayAttendenceDoc = await Attendance.create(todayAttendence);
+    if (!todayAttendenceDoc) {
+      return next(new ErrorHandler("Attendance error", 400));
+    }
+
+    const updatedmember = await Members.findByIdAndUpdate(
+      id,
+      { $push: { attendence: todayAttendenceDoc._id } },
+      { new: true }
+    );
+    if (!updatedmember) {
+      return next(new ErrorHandler("Attendance error at member model", 400));
+    }
+
+
+    res.status(200).json({
+      success: true,
+      message: "Attendance added successfully",
+      member: updatedmember,
+    });
+  }
+);
+
+export const checkOut = catchAsyncErrors(
+  async (req, res, next) => {
+    const { id } = req.params;
+
+    const today = new Date();
+    const startOfDay = new Date(today.setHours(0, 0, 0, 0));
+
+    // Find Member
+    const Member = await Members.findById(id).populate("attendence");
+
+    if (!Member) {
+      return next(new ErrorHandler("Member not found", 404));
+    }
+
+    // Check if attendance exists for today
+    const alreadyPresent = Member.attendence.find((att) => {
+      const attDate = new Date(att.date);
+      return attDate >= startOfDay ? attDate : false; // means already added for today
+    });
+      console.log('alreadyPresent',alreadyPresent);
+    if (!alreadyPresent) {
+      return next(new ErrorHandler("Member had not checked in today", 400));
+    }
+
+    
+    if (alreadyPresent.status === "checked out") {
+      return next(new ErrorHandler("Member already checked out today", 400));
+    }
+
+    // update attendance
+    const todayAttendence = {
+      member: id,
+      checkInTime: alreadyPresent.checkInTime,
+      checkOutTime: new Date(),
+      status: "checked out",
+      date: new Date(),
+    };
+    const todayAttendenceDoc = await Attendance.findByIdAndUpdate(
+      alreadyPresent._id,
+      todayAttendence,
+      { new: true }
+    );
+    if (!todayAttendenceDoc) {
+      return next(new ErrorHandler("Attendance error", 400));
+    }
+
+ 
+    res.status(200).json({
+      success: true,
+      message: "Member checked out successfully",
+      
+    });
+  }
+);

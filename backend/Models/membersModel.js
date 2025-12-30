@@ -112,6 +112,10 @@ const membersSchema = new mongoose.Schema(
       type: Boolean,
       default: true,
     },
+    isClubMember: {
+      type: Boolean,
+      default: false,
+    },
 
     profileImage: {
       public_id: {
@@ -126,14 +130,8 @@ const membersSchema = new mongoose.Schema(
 
     attendence: [
       {
-        date: {
-          type: Date,
-        },
-        status: {
-          type: String,
-          enum: ["present", "absent"],
-          default: "present",
-        },
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Attendance",
       },
     ],
   },

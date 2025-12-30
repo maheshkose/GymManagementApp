@@ -5,7 +5,7 @@ import { AppContextHook } from "../../context/AppState";
 import { toast } from "react-toastify";
 import { CgProfile } from "react-icons/cg";
 import { FaUserEdit } from "react-icons/fa";
-import { CiSearch, CiSquareCheck } from "react-icons/ci";
+import { CiFilter, CiSearch, CiSquareCheck } from "react-icons/ci";
 import { TiUserAdd } from "react-icons/ti";
 import { RiDeleteBin2Line } from "react-icons/ri";
 import { MdOutlineAutorenew } from "react-icons/md";
@@ -18,7 +18,10 @@ const Members = () => {
     getAllExpiredMembers,
     getAllLiveMembers,
     addAttendence,
-    payDueAmount
+    payDueAmount,
+    getAllPlans,
+    checkInMember,
+    checkOutMember,
   } = AppContextHook();
   const navigate = useNavigate();
 
@@ -28,13 +31,14 @@ const Members = () => {
   const [allMembers, setallMembers] = useState([]);
   const [searchQuery, setsearchQuery] = useState("");
   const [searchResultArray, setsearchResultArray] = useState([]);
+  const [plans, setPlans] = useState([]);
 
   const getAllLiveMembersHandler = async () => {
     const res = await getAllLiveMembers();
     if (res?.data?.success) {
       toast.success(res.data.message);
       setMembers(res.data.allLiveMembers);
-      setallMembers(res.data.allLiveMembers)
+      setallMembers(res.data.allLiveMembers);
     } else {
       toast.error(res.response?.data?.message);
     }
@@ -67,9 +71,36 @@ const Members = () => {
       toast.error(res.response?.data?.message);
     }
   };
+  const getAllPlanHandler = async () => {
+    //fetch all plans from backend
+    const res = await getAllPlans();
+    if (res?.data?.success) {
+      setPlans(res.data?.allPlans);
+      // toast.success(res.data.message);
+    } else {
+      toast.error(res.response?.data?.message);
+    }
+  };
+  const checkInMemberHandler = async (id) => {
+    const res = await checkInMember(id);
+    if (res?.data?.success) {
+      toast.success(res.data.message);
+    } else {
+      toast.error(res.response?.data?.message);
+    }
+  };
+  const checkOutMemberHandler = async (id) => {
+    const res = await checkOutMember(id);
+    if (res?.data?.success) {
+      toast.success(res.data.message);
+    } else {
+      toast.error(res.response?.data?.message);
+    }
+  };
 
   useEffect(() => {
     getAllLiveMembersHandler();
+    getAllPlanHandler();
   }, []);
   console.log("members", members);
 
@@ -93,6 +124,17 @@ const Members = () => {
     // console.log('searchResult',searchResult);
     // setsearchResultArray(searchResult);
     setMembers(searchResult);
+  };
+  const PlanBasedFilter = (e) => {
+    const plan = e.target.value.toLowerCase().trim();
+    if (plan === "all") {
+      setMembers(allMembers);
+      return;
+    }
+    const filteredMembers = allMembers.filter(
+      (m) => m.currentPlan.plan.name === plan
+    );
+    setMembers(filteredMembers);
   };
   return (
     <div className="members-page">
@@ -138,32 +180,58 @@ const Members = () => {
             <span>{showAddMember ? "Cancel" : "Add New Member"}</span>
           </button>
         </div>
-        <ul className="nav right">
-          <li
-            className="live-m"
-            onClick={() => {
-              getAllLiveMembersHandler();
-            }}
-          >
-            Live Members
-          </li>
-          <li
-            className="live-m"
-            onClick={() => {
-              getAllMembersHandler();
-            }}
-          >
-            Toatal Members
-          </li>
-          <li
-            className="live-m"
-            onClick={() => {
-              getAllExpiredMembersHandler();
-            }}
-          >
-            Expired Members
-          </li>
-        </ul>
+        <div className="right-con">
+          <ul className="nav right">
+            <li
+              className="live-m"
+              onClick={() => {
+                getAllLiveMembersHandler();
+              }}
+            >
+              Live Members
+            </li>
+            <li
+              className="live-m"
+              onClick={() => {
+                getAllMembersHandler();
+              }}
+            >
+              Toatal Members
+            </li>
+            <li
+              className="live-m"
+              onClick={() => {
+                getAllExpiredMembersHandler();
+              }}
+            >
+              Expired Members
+            </li>
+          </ul>
+          <div className="plan-filter">
+            <label htmlFor="filterbyPlan">
+              <CiFilter />
+              <span>Filter</span>
+            </label>
+
+            <select
+              name="filterByPlan"
+              id="filterbyPlan"
+              onChange={PlanBasedFilter}
+            >
+              <option value="all">All Plans</option>
+
+              {plans && plans.length !== 0 ? (
+                plans.map((p, i) => (
+                  <option key={i} value={p.name}>
+                    {p.name}
+                  </option>
+                ))
+              ) : (
+                <option value="">No plans found</option>
+              )}
+            </select>
+          </div>
+        </div>
       </div>
       {showAddMember ? (
         <AddMember
@@ -235,10 +303,7 @@ const Members = () => {
                   Paid Amt : <strong>{member?.currentPlan.paidAmount}</strong>
                 </p>
                 <p>
-                  Due :{" "}
-                  <strong>
-                    {member?.currentPlan.dueAmount}
-                  </strong>
+                  Due : <strong>{member?.currentPlan.dueAmount}</strong>
                 </p>
               </div>
               <hr />
@@ -260,28 +325,41 @@ const Members = () => {
                   </li>
                   <li
                     onClick={() => {
-                      addAttendenceHandler(member._id);
+                      checkInMemberHandler(member._id);
                     }}
                   >
                     <CiSquareCheck /> <span>CheckIn</span>
                   </li>
-                   <li
+                  <li
+                    onClick={() => {
+                      checkOutMemberHandler(member._id);
+                    }}
+                  >
+                    <CiSquareCheck /> <span>CheckOut</span>
+                  </li>
+                  <li
                     onClick={() => {
                       navigate(`/renewPlan/${member._id}`);
                     }}
                   >
                     <MdOutlineAutorenew /> <span>Renew</span>
                   </li>
-                  {member?.currentPlan.dueAmount > 0 ?<li
+                  {member?.currentPlan.dueAmount > 0 ? (
+                    <li
+                      onClick={() => {
+                        navigate(`/payDue/${member._id}`);
+                      }}
+                    >
+                      <LuReceiptIndianRupee /> <span>Pay Due</span>
+                    </li>
+                  ) : (
+                    ""
+                  )}
+                  <li
                     onClick={() => {
-                      navigate(`/payDue/${member._id}`);
+                      navigate(`/deleteMember/${member._id}`);
                     }}
                   >
-                    <LuReceiptIndianRupee /> <span>Pay Due</span>
-                  </li>:""}
-                  <li onClick={() => {
-                      navigate(`/deleteMember/${member._id}`);
-                    }}>
                     <RiDeleteBin2Line /> <span>Delete</span>
                   </li>
                 </ul>

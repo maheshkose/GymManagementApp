@@ -1,17 +1,40 @@
 .expense-list-container {
   padding: 30px;
 }
-
+.expense-list-table-container{
+  margin-top: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  
+}
+.exp-list-header{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  gap: 16px;
+  padding: 20px;
+}
+.exp-list-header input{
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 14px;
+  color: #333;
+  font-size: 24px;
+}
 table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
+ 
 }
 
 table th, table td {
   padding: 12px;
   border: 1px solid #ddd;
+   font-size: 24px;
 }
+
 
 table th {
   background: #eee;

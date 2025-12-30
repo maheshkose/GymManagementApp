@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import "./AddExpense.css";
 import { AppContextHook } from "../../../context/AppState";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const AddExpense = () => {
-
+  const navigate = useNavigate();
   const {addExpense} = AppContextHook();
   const [data, setData] = useState({
     title: "",
@@ -29,10 +30,10 @@ const AddExpense = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    console.log("Expense Added:", data);
     const res = await addExpense(data);
         if (res?.data?.success) {
           toast.success(res.data.message);
+          navigate('/expense-list');
         } else {
           toast.error(res.response?.data?.message);
         }
@@ -87,6 +88,7 @@ const AddExpense = () => {
               value={data.category}
               onChange={handleChange}
             >
+              <option value={""} disabled>Choose category</option>
               {[
                 "Equipment",
                 "Maintenance",
@@ -111,7 +113,7 @@ const AddExpense = () => {
               name="paymentMethod"
               value={data.paymentMethod}
               onChange={handleChange}
-            >
+            ><option value={""} disabled>Choose Payment mode</option>
               {["Cash", "Online", "Bank Transfer", "Cheque"].map(
                 (method, i) => (
                   <option key={i} value={method}>

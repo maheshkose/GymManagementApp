@@ -80,15 +80,11 @@ const employeeSchema = new mongoose.Schema(
       secure_url: { type: String,default:"" },
     },
     attendance: [
-      {
-        date: Date,
-        status: {
-          type: String,
-          enum: ["present", "absent"],
-          default: "present",
-        },
-      },
-    ],
+          {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Attendance",
+          },
+        ],
 
     documents: {
       aadhaar: String,

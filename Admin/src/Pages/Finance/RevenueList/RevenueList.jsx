@@ -44,7 +44,11 @@ const RevenueList = () => {
             <tr key={i}>
               <td>{rev.source}</td>
               <td>{rev.amount}</td>
-              <td>{rev.date}</td>
+              <td>{new Date(rev.date).toDateString("en-US",{
+                year: "numeric",
+                day: "2-digit", 
+                month: "short",
+              })}</td>
             </tr>
           ))}
         </tbody>
