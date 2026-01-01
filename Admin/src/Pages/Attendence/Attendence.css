@@ -285,4 +285,7 @@ tbody tr:hover {
     justify-content: center;
     align-items: center;
   }
+  .at-Tr-graph{
+    padding: 0;
+  }
 }

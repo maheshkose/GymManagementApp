@@ -39,3 +39,22 @@ table th, table td {
 table th {
   background: #eee;
 }
+
+@media (max-width:480px) {
+  .expense-list-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 2px;
+  }
+  .expense-list-container{
+    width: 98vw;
+  }
+  table th, table td{
+    font-size: 1rem;
+  }
+  .exp-list-header{
+    flex-direction: column;
+  }
+}

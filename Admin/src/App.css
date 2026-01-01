@@ -89,7 +89,7 @@
   }
   .main-content{
     width: 100vw;
-    padding: 3rem auto;
+    padding: 3rem 2px 6rem 2px;
     overflow-x: hidden;
   }
 }

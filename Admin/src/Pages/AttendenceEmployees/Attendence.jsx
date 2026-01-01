@@ -209,7 +209,7 @@ const AttendenceEmployees = () => {
         </div>
         </div>
         <div className="attendence-trend">
-          <h3>Attendence Trend (Weekly)</h3>
+          <h3>Attendance Trend (Weekly)</h3>
           <div className="at-Tr-graph">
             {/* Graph or chart component can be placed here */}
             <ResponsiveContainer width="100%" height={300}>
@@ -219,8 +219,8 @@ const AttendenceEmployees = () => {
                 height={300}
                 margin={{
                   top: 10,
-                  left: 0,
-                  right: 10,
+                  left: -30,
+                  right: 0,
                   bottom: 10,
                 }}
                 
@@ -228,20 +228,20 @@ const AttendenceEmployees = () => {
                 <XAxis
                   dataKey="weekDay"
                   // tickFormatter={formatAxisTick}
-                  label={{
-                    position: "insideBottomRight",
-                    value: "XAxis title",
-                    offset: -10,
-                  }}
+                  // label={{
+                  //   position: "insideBottomRight",
+                  //   value: "XAxis title",
+                  //   offset: -10,
+                  // }}
                 />
                 <YAxis
                 title={"Attendence Count"}
-                  label={{
-                    position: "insideTopLeft",
-                    value: "YAxis title",
-                    angle: -90,
-                    dy: 60,
-                  }}
+                  // label={{
+                  //   position: "insideTopLeft",
+                  //   value: "YAxis title",
+                  //   angle: -90,
+                  //   dy: 60,
+                  // }}
                 />
                 <Bar
                   dataKey="count"

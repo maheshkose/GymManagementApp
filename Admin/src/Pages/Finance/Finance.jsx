@@ -142,7 +142,7 @@ const Finance = () => {
         <h2>Monthly Revenue vs Expenses</h2>
         <div className="chart-box">
           <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={monthlyData}>
+            <BarChart data={monthlyData} margin={{top:30,left:-10,bottom:10,right:0}}>
               <XAxis dataKey="month" />
               <YAxis />
               <Tooltip />

@@ -193,18 +193,25 @@
 /* RESPONSIVE 480px */
 @media (max-width: 30rem) {
   .home-page {
-    padding: auto;
+    /* padding: auto; */
+    display: flex;
+    flex-direction: column;
     gap: 1.2rem;
     overflow-x: hidden;
+    justify-content: start;
+    align-items: center;
+    padding: 20px 0;
   }
+
+ .members-chart{
+  width: 100%;
+ }
 
   .number-static {
     grid-template-columns: 1fr;
   }
 
-  .members-chart, .other, .event {
-    padding: 1.2rem;
-  }
+ 
 
   .active-members-chart {
     height: auto;

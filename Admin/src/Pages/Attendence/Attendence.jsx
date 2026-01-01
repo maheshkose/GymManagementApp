@@ -213,7 +213,7 @@ const Attendance = () => {
         </div>
         </div>
         <div className="attendence-trend">
-          <h3>Attendence Trend (Weekly)</h3>
+          <h3>Attendance Trend (Weekly)</h3>
           <div className="at-Tr-graph">
             {/* Graph or chart component can be placed here */}
             <ResponsiveContainer width="100%" height={300}>
@@ -223,8 +223,8 @@ const Attendance = () => {
                 height={300}
                 margin={{
                   top: 10,
-                  left: 0,
-                  right: 10,
+                  left: -30,
+                  right: 0,
                   bottom: 10,
                 }}
                 
@@ -234,7 +234,7 @@ const Attendance = () => {
                   // tickFormatter={formatAxisTick}
                   label={{
                     position: "insideBottomRight",
-                    value: "XAxis title",
+                    value: "",
                     offset: -10,
                   }}
                 />
@@ -242,7 +242,7 @@ const Attendance = () => {
                 title={"Attendence Count"}
                   label={{
                     position: "insideTopLeft",
-                    value: "YAxis title",
+                    value: "",
                     angle: -90,
                     dy: 60,
                   }}
